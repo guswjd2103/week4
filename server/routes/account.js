@@ -83,6 +83,9 @@ router.post('/login', (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
+  console.log(email);
+  console.log(password);
+
   pool.getConnection(function(err, connection) {
     if(err) { 
       res.json({

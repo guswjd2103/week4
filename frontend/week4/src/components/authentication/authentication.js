@@ -5,8 +5,9 @@ import '../../style.css';
  
 class Authentication extends Component {
     state = {
-      username:"",
-      password:""
+      email:"",
+      password:"",
+      name : ""
     }
    
     handleChange = (e) => {
@@ -16,15 +17,17 @@ class Authentication extends Component {
     }
  
     handleRegister = () => {
-        let id = this.state.username;
+        let id = this.state.email;
         let pw = this.state.password;
+        let name = this.state.name;
  
-        this.props.onRegister(id, pw).then(
+        this.props.onRegister(id, pw, name).then(
             (result) => {
                 if(!result) {
                     this.setState({
-                        username: '',
-                        password: ''
+                        email: '',
+                        password: '',
+                        name : ''
                     });
                 }
             }
@@ -32,7 +35,7 @@ class Authentication extends Component {
     }
  
     handleLogin = () => {
-        let id = this.state.username;
+        let id = this.state.email;
         let pw = this.state.password;
  
         this.props.onLogin(id, pw).then(
@@ -60,13 +63,13 @@ class Authentication extends Component {
         const inputBoxes = (
             <div>
                 <div className="input-field col s12 username">
-                    <label>Username</label>
+                    <label>Email</label>
                     <input
-                    name="username"
+                    name="email"
                     type="text"
                     className="validate"
                     onChange={this.handleChange}
-                    value={this.state.username}
+                    value={this.state.email}
                     onKeyPress={this.handleKeyPress}/>
                 </div>
                 <div className="input-field col s12">
@@ -77,6 +80,41 @@ class Authentication extends Component {
                     className="validate"
                     onChange={this.handleChange}
                     value={this.state.password}
+                    onKeyPress={this.handleKeyPress}/>
+                </div>
+            </div>
+        );
+
+        const inputBoxes2 = (
+            <div>
+                <div className="input-field col s12 username">
+                    <label>Email</label>
+                    <input
+                    name="email"
+                    type="text"
+                    className="validate"
+                    onChange={this.handleChange}
+                    value={this.state.email}
+                    onKeyPress={this.handleKeyPress}/>
+                </div>
+                <div className="input-field col s12">
+                    <label>Password</label>
+                    <input
+                    name="password"
+                    type="password"
+                    className="validate"
+                    onChange={this.handleChange}
+                    value={this.state.password}
+                    onKeyPress={this.handleKeyPress}/>
+                </div>
+                <div className="input-field col s12">
+                    <label>NickName</label>
+                    <input
+                    name="name"
+                    type="text"
+                    className="validate"
+                    onChange={this.handleChange}
+                    value={this.state.name}
                     onKeyPress={this.handleKeyPress}/>
                 </div>
             </div>
@@ -107,7 +145,7 @@ class Authentication extends Component {
         const registerView = (
             <div className="card-content">
                 <div className="row">
-                    {inputBoxes}
+                    {inputBoxes2}
                     <a className="waves-effect waves-light btn"
                       onClick={this.handleRegister}>CREATE</a>
                 </div>
@@ -135,7 +173,7 @@ Authentication.propTypes = {
  
 Authentication.defaultProps = {
     mode: true,
-    onRegister: (id, pw) => { console.error("register function is not defined"); },
+    onRegister: (id, pw, name) => { console.error("register function is not defined"); },
     onLogin: (id, pw) => { console.error("login function not defined"); }
 };
  

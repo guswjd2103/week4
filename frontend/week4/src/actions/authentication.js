@@ -9,16 +9,16 @@ import {
     AUTH_REGISTER_FAILURE
 } from './ActionTypes';
 
-export function loginRequest(username, password) {
+export function loginRequest(email, password) {
     return (dispatch) => {
         // Inform Login API is starting
         dispatch(login());
    
         // API REQUEST
-        return axios.post('/api/account/login', { username, password }) //loginRequest가 실행되면 thunk함수의 인자를 post에 전송
+        return axios.post('/routes/account/login', { email, password }) //loginRequest가 실행되면 thunk함수의 인자를 post에 전송
         .then((response) => {
             // SUCCEED
-            dispatch(loginSuccess(username));
+            dispatch(loginSuccess(email));
         }).catch((error) => {
             // FAILED
             dispatch(loginFailure());
@@ -32,10 +32,10 @@ export function login() {
     };
 }
 
-export function loginSuccess(username) {
+export function loginSuccess(email) {
     return {
         type: AUTH_LOGIN_SUCCESS,
-        username
+        email
     };
 }
 
@@ -46,12 +46,12 @@ export function loginFailure() {
 }
   
 /* REGISTER */
-export function registerRequest(username, password) { //thunk
+export function registerRequest(email, password, name) { //thunk
     return (dispatch) => {
         // Inform Register API is starting
         dispatch(register()); //action.type = AUTH_REGISTER 인 액션객체를 리듀서로 보내 회원가입 요청 시작
  
-        return axios.post('/api/account/signup', { username, password })
+        return axios.post('/routes/account/signup', { email, password, name })
             .then((response) => {
                 dispatch(registerSuccess());
             }).catch((error) => {
