@@ -18,6 +18,7 @@ class App extends Component {
           <Route path ="/register" component = {Register}/>
           <Route path ="/viewDetail" component = {ViewDetail}/>
         </Switch>
+
         
       </div>
     );
