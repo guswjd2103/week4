@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
-import {Login, Register, Home} from './routes';
+import {Login, Register, Home, File} from './routes';
 import {Switch, Route} from "react-router-dom";
 
 
@@ -16,7 +16,8 @@ class App extends Component {
         <Switch>
           <Route path ="/login" component = {Login}/>
           <Route path ="/register" component = {Register}/>
-        </Switch>
+          <Route path="/file" componenet={File}/>
+      </Switch>
         
       </div>
     );

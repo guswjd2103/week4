@@ -5,7 +5,7 @@ import '../style.css';
 
 class Header extends Component {
 
-    render() {
+    render() {console.log("header");
       const loginButton = (
           <Button><Link to="/login">로그인하기</Link></Button>
       );
