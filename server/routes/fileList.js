@@ -44,9 +44,9 @@ function checkFileType(file, cb) {
     }
 }
 
-router.get('/', function(req, res) {
-    res.send('index');
-});
+// router.get('/', function(req, res) {
+//     res.send('index');
+// });
 
 router.post('/uploadFile', upload.single('fileupload'), function(req, res) {
     console.log('file upload');

@@ -26,6 +26,7 @@ class Login extends Component {
 
                     return true;
                 } else {
+                    console.log('login fail');
                     let $toastContent = $('<span style="color: #FFB4BA">Incorrect username or password</span>');
                     Materialize.toast($toastContent, 2000);
                     return false;

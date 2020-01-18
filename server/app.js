@@ -21,14 +21,14 @@ app.get('/', (req, res) => res.render('index'));
 app.pool = require('./database/mysqlPool');
 
 //cors
-// app.use(cors({
-//   origin : 'http://127.0.0.1;3000',
-//   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-//   maxAge: 5,
-//   credentials: true,
-//   allowMethods: ['GET', 'POST', 'DELETE'],
-//   allowHeaders: ['Content-Type', 'Authorization', 'Accept','application/json','X-Requested-With','Origin'],
-// }));
+app.use(cors({
+  origin : 'http://localhost:3000',
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept','application/json','X-Requested-With','Origin'],
+}));
 
 //routes '/api'로 들어오는 요청을 api폴더의 라우트들로 위임
 app.use('/routes', routes); //api/account/signup 등 접근 가능

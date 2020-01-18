@@ -15,7 +15,7 @@ export function loginRequest(username, password) {
         dispatch(login());
    
         // API REQUEST
-        return axios.post('/api/account/login', { username, password }) //loginRequest가 실행되면 thunk함수의 인자를 post에 전송
+        return axios.post('/routes/account/login', { username, password }) //loginRequest가 실행되면 thunk함수의 인자를 post에 전송
         .then((response) => {
             // SUCCEED
             dispatch(loginSuccess(username));
@@ -51,7 +51,7 @@ export function registerRequest(username, password) { //thunk
         // Inform Register API is starting
         dispatch(register()); //action.type = AUTH_REGISTER 인 액션객체를 리듀서로 보내 회원가입 요청 시작
  
-        return axios.post('/api/account/signup', { username, password })
+        return axios.post('/routes/account/signup', { username, password })
             .then((response) => {
                 dispatch(registerSuccess());
             }).catch((error) => {
