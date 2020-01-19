@@ -4,7 +4,15 @@
             "id":1,
             "title":"data structure",
             "producer":"jisu",
-            "school":"school of computing"
+            "school":"school of computing",
+            "illustration": "data structure moon professor"
+        },
+        {
+            "id":1,
+            "title":"Introduction of Algorithm",
+            "producer":"jisu",
+            "school":"school of computing",
+            "illustration": "data structure moon professor"
         }
     ]
 }

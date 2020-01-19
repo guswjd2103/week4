@@ -147,8 +147,9 @@ router.get('/download/:name', function(req, res) {
 
 //파일에 해당하는 댓글 보여주기
 router.get('/getComment', function(req, res) {
-    const filename = req.body.filename;
-
+    // const filename = req.body.filename;
+    // console.log(filename);
+    console.log(req.body);
     pool.getConnection(function(err, connection) {
         if(err) {
             res.json({
@@ -160,9 +161,13 @@ router.get('/getComment', function(req, res) {
             return;
         }
 
+        // var query = util.format(
+        //     'SELECT comment FROM file_comments WHERE filename = %s;',
+        //     mysql.escape(filename)
+        // );
+
         var query = util.format(
-            'SELECT comment FROM file_comments WHERE filename = %s;',
-            mysql.escape(filename)
+            'SELECT * FROM file_comments;'
         );
 
         connection.query(query, function(err, data) {
@@ -184,13 +189,14 @@ router.get('/getComment', function(req, res) {
                     'code' : 0,
                     'comments' : data
                 })
-                // console.log(data[0].comment);
-                // console.log(data[1].comment);
+                console.log(data);
+
             } else {
                 res.json({
                     "code" : 1,
                     'msg' : 'no exist comments'
                 })
+                console.log('fail');
             }
         })
     })
@@ -200,7 +206,7 @@ router.get('/getComment', function(req, res) {
 router.post('/addComment', (req, res) => {
     const username = req.body.username;
     const filename = req.body.filename;
-    const comment = req.body.comment;
+    const comment = req.body.content;
 
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -228,6 +234,7 @@ router.post('/addComment', (req, res) => {
                     "msg" : "fail to connect database",
                     "err" : err
                 });
+                console.log('fail server');
 
                 return;
             } else { 

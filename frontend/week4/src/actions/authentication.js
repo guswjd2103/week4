@@ -46,12 +46,12 @@ export function loginFailure() {
 }
   
 /* REGISTER */
-export function registerRequest(email, password, name) { //thunk
+export function registerRequest(email, password, name, department) { //thunk
     return (dispatch) => {
         // Inform Register API is starting
         dispatch(register()); //action.type = AUTH_REGISTER 인 액션객체를 리듀서로 보내 회원가입 요청 시작
  
-        return axios.post('/routes/account/signup', { email, password, name })
+        return axios.post('/routes/account/signup', { email, password, name, department })
             .then((response) => {
                 dispatch(registerSuccess());
             }).catch((error) => {
