@@ -9,15 +9,6 @@ var pool = require('../database/mysqlPool');
 var util = require('util');
 
 var storage = multer.diskStorage({
-    // destination : function (req, file, callback) {
-    //     if(file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
-    //         console.log('image file');
-    //         callback(null, './public/uploads/images')
-    //     } else if (file.mimetype == "application/pdf" || file.mimetype == "application/txt" || file.mimetype == "application/octet-stream") {
-    //         console.log('file type');
-    //         callback(null, './public/uploads/texts');
-    //     }
-    // },
     destination : './public/uploads/',
     filename : function(req, file, cb) {
         cb(null, Date.now() + "-" + path.extname(file.originalname));
@@ -26,9 +17,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({
     storage : storage,
-    // fileFilter : function(req, file, cb) {
-    //     checkFileType(file, cb);
-    // }
 });
 
 function checkFileType(file, cb) {
@@ -48,12 +36,9 @@ function checkFileType(file, cb) {
 //     res.send('index');
 // });
 
-router.post('/uploadFile', upload.single('fileupload'), function(req, res) {
+router.post('/uploadFile', upload.single('file'), function(req, res) {
+
     console.log('file upload');
-    console.log(req.file); // file passed from client
-    console.log(req.body); //other values passed from the client like name...
-    console.log(req.file.path);
-    // const username = req.body.username;
     const username = "haha";
     const filename = req.file.filename; //file path
     const type = req.file.mimetype;

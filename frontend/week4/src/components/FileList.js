@@ -8,10 +8,7 @@ class FileList extends Component {
     }
 
     render() {
-        
-
         return(
-        
             <u1 className="list_file">
                 {this.props.list.map((file,index)=>(
                     <li key={index}>

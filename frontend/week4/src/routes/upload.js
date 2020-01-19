@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class Upload extends Component{
-
     constructor(props){
         super(props);
 
@@ -12,6 +11,7 @@ class Upload extends Component{
     }
 
     onChangeHandler=event=>{
+        console.log(event.target.files[0]);
         this.setState({
             selectedFile:event.target.files[0],
             loaded:0
@@ -19,17 +19,15 @@ class Upload extends Component{
     }
 
     onClickHandler=()=>{
-        const data=new FormData()
-        data.append('file', this.state.selectedFile)
+        // const apiUrl='dummy/file_list.json';
+        const apiUrl='/routes/fileList/uploadFile';
+        const formData = new FormData();
+        formData.append('file', this.state.selectedFile);
 
-        const apiUrl='dummy/file_list.json';
-
-        axios.post(apiUrl, data, {
-            //receive two parameter endpoint url, from data
-        })
-        .then(res=>{//then print response status
-            console.log(res.statusText)
-        })
+        axios.post(apiUrl, formData)
+        .then(res => {
+            alert('success');
+        }).catch (err => alert('실패')) 
     }
 
     render(){

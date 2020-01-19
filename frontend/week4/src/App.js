@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
-import {Login, Register, Home, File, ViewDetail} from './routes';
-import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
+import {Login, Register, Home, File, ViewDetail, Upload} from './routes';
+import {Switch, Route} from "react-router-dom";
 
 
 class App extends Component {
@@ -11,17 +11,16 @@ class App extends Component {
   } 
   render() {
     return (
-      <Router>
         <div>
           <Route exact path="/" component={Home}/>
-          
+          <Switch>
             <Route path ="/login" component = {Login}/>
             <Route path ="/register" component = {Register}/>
             <Route path ="/viewDetail/:fileId" component = {ViewDetail}/>
-            <Route path="/file" component={File}/>
-          
+            <Route path="/file" component= {File}/>
+            <Route path="/upload" component= {Upload}/>
+          </Switch>
       </div>
-      </Router>
     );
   }
 }

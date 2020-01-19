@@ -1,0 +1,52 @@
+1. examine and understand data
+2. build input pipeline
+3. build the model
+4. train the model
+5. test the model
+
+tf.keras.Model.compile ->  훈련 모델 설정
+- optimizer : 훈련과정
+- loss : 손실함수 ex) mse(평균제곱 오차), 등 손실 함수의 이름이나 모듈 지정
+- metrics : 훈련 모니터링
+
+test set 으로 model 평가
+- model.evaluate(testx, testy)
+
+머신러닝 훈련과정
+model.fit(trainx, trainy, epochs, batch_size)
+- epochs : 한 에포크는 전체 입력 데이터릃 나번 순회하는것
+- batch size : 넘파이 데이터를 전달하면 모델은 데이터를 작은 배치로 나누고 훈련과정에서 이 배치를 순회함.
+
+ml로 trainset에 대한 예측값 얻기
+predict = model.predict_classes(testx)
+
+ONE-HOT-VECTOR : 원-핫 벡터는 단 하나의 차원에서만 1이고, 나머지 차원에서는 0인 벡터
+-label : one-hot-vector로, 실수 배열이다. 그 이유는 softmax regression의 결과가 실수형이기 때문이다.
+
+softmax model : 서로 다른 여러 항목 중 하나일 확률을 계산하고자 할 때 사용하는 모델
+	         각 값이 0과 1 사이의 값으로 이루어지며, 모두 합하면 1이되는 목록을 제공
+	         대부분 모델의 마지막 레이어는 소프트맥스 레이어임.
+1. input data가 각 클래스에 속한다는 증거를 수치적으로 계산
+2. 계산 값을 확률로 변환
+
+ex) 이미지가 특정 클래스에 속하는지 계산 : 각 픽셀의 intensity를 가중치합하여 구함.
+evidencei=∑jWi, jxj+bi
+ -> Wi는 가중치이며 bi는 클래스 i에 대한 바이어스이고, j는 입력 데이터로 사용한 이미지 
+x의 픽셀 값을 합하기 위한 인덱스입니다. 이제 각 클래스에 대해 계산한 증거값들을 "소프트맥스" 함수를 활용해 예측 확률 
+y로 변환 ;  y = softmax(evidence)
+ -> 가중치와 bias는 학습해나가면서 수정될 수 있는 값으로 tf.Variable로 다룬다.
+
+머신 러닝 중에 발생하는 많은 오버헤드는 GPU에서 연산을 하거나 분산 처리 환경같은 상황에서 문제가 되기도 함.
+-> 텐서플로우는 파이썬에서 하나의 무거운 작업을 독립적으로 실행하는 대신, 서로 상호작용하는 연산간의 그래프를 유저가 기술하면 연산 모두가 파이썬 밖에서 동작함.
+
+좋은 모델 : 손실이 적은 모델
+loss : 크로스 엔트로피
+
+
+<CNN>
+batch size를 제외하고 (이미지 높이, 너비, 컬러 채널) 크기의 tensor를 입력받는다.
+ex) model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1))) 
+    : 28 *28 size, 1 color channel 크기의 입력을 처리하는 cnn을 정의
+
+building data input pipelines using tf.keras.preprocessing.image.ImageDataGenerator
+image training : model.fit_generator

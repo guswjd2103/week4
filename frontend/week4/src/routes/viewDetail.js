@@ -12,8 +12,6 @@ class ViewDetail extends Component {
     
     constructor(props){
         super(props);
-        console.log('hihihihi');
-        console.log(this.props.list);
         this.state={
             fileId:parseInt(this.props.match.params.fileId, 10),//get fileId to integer
             file:{}//file object
