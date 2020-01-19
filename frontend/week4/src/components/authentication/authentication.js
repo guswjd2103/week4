@@ -20,14 +20,16 @@ class Authentication extends Component {
         let id = this.state.email;
         let pw = this.state.password;
         let name = this.state.name;
+        let department = this.state.department;
  
-        this.props.onRegister(id, pw, name).then(
+        this.props.onRegister(id, pw, name, department).then(
             (result) => {
                 if(!result) {
                     this.setState({
                         email: '',
                         password: '',
-                        name : ''
+                        name : '',
+                        department : ''
                     });
                 }
             }
@@ -117,6 +119,16 @@ class Authentication extends Component {
                     value={this.state.name}
                     onKeyPress={this.handleKeyPress}/>
                 </div>
+                <div className="input-field col s12">
+                    <label>Department</label>
+                    <input
+                    name="department"
+                    type="text"
+                    className="validate"
+                    onChange={this.handleChange}
+                    value={this.state.department}
+                    onKeyPress={this.handleKeyPress}/>
+                </div>
             </div>
         );
  
@@ -173,7 +185,7 @@ Authentication.propTypes = {
  
 Authentication.defaultProps = {
     mode: true,
-    onRegister: (id, pw, name) => { console.error("register function is not defined"); },
+    onRegister: (id, pw, name, department) => { console.error("register function is not defined"); },
     onLogin: (id, pw) => { console.error("login function not defined"); }
 };
  

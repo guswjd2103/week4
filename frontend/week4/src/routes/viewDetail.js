@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../style.css';  
-import {FileView, CommentList, Write} from '../components';
+import {CommentList, Write} from '../components';
 import Materialize from 'materialize-css';
 import $ from 'jquery';
 import { commentPostRequest, commentEditRequest, commentListRequest, commentRemoveRequest } from '../actions/comment';
-
+import axios from 'axios';
+import FileView from '../components/fileView'
 
 class ViewDetail extends Component {
+    
+    constructor(props){
+        super(props);
+        console.log('hihihihi');
+        console.log(this.props.list);
+        this.state={
+            fileId:parseInt(this.props.match.params.fileId, 10),//get fileId to integer
+            file:{}//file object
+        }
+    }
+
     handlePost = (username, filename, content) => {
         return this.props.commentPostRequest(username, filename, content).then(
             () => {
@@ -73,8 +85,31 @@ class ViewDetail extends Component {
             }
         });
     }
+
     componentDidMount() {
         this.props.commentListRequest(true, undefined, undefined);
+
+        this._getFile();
+    }
+
+    _getFile(){
+        const apiUrl='/dummy/file_list.json';
+
+        axios.get(apiUrl) /**axios.get('/download/:name') */
+        .then(data=> {
+            //save file that matches fileId
+            this.setState({
+                file:data.data.fileList.filter(f=>(
+                    f.id===this.state.fileId
+                ))
+            });
+            console.log("this.state.fileId"+this.state.fileId); //NaN
+            console.log("props"+this.props.match.params.fileId); //${file.id}
+            console.log("propsInt"+parseInt(this.props.match.params.fileId)); //NaN
+        })
+        .catch(error=>{
+            console.log(error);
+        });
     }
 
     render() {
@@ -83,7 +118,13 @@ class ViewDetail extends Component {
         const write = (<Write onPost = {this.handlePost}/>);
         return (
             <div className = "wrapper">
-                {/* <FileView /> */}
+                
+                {this.state.file.id?(
+                    <FileView file={this.state.file}/>
+                ):(
+                    <span>LOADING...</span>
+                )}
+
                 {write}
                 <CommentList data = {this.props.commentData}
                              onEdit = {this.handleEdit}

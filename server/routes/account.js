@@ -8,6 +8,7 @@ router.post('/signup', (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
   var name = req.body.name;
+  var department = req.body.department;
   
   pool.getConnection(function(err, connection) {
     if(err) {
@@ -39,10 +40,11 @@ router.post('/signup', (req, res) => {
 
       if(firstdata.toString() == "") { //기존에 없는 경우
         var newQuery = util.format(
-          'INSERT INTO user_info (email, password, name) VALUES (%s, %s, %s)', 
+          'INSERT INTO user_info (email, password, name, department) VALUES (%s, %s, %s, %s)', 
           mysql.escape(email),
           mysql.escape(password),
-          mysql.escape(name)
+          mysql.escape(name),
+          mysql.escape(department)
         );
         
         connection.query(newQuery, function(err, data) {
