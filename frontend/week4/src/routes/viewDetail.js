@@ -111,8 +111,8 @@ class ViewDetail extends Component {
     }
 
     render() {
-        console.log(this.props.commentData);
-        console.log(this.props.commentData.data);
+        // console.log(this.props.location.state.subject);
+
         const write = (<Write onPost = {this.handlePost}/>);
         return (
             <div className = "wrapper">
