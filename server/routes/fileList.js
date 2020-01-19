@@ -96,6 +96,45 @@ router.post('/uploadFile', upload.single('fileupload'), function(req, res) {
     })
 });
 
+router.get('/fileList', function(req, res) {
+    var department = req.body.department;
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : "mysql connection error",
+                "err" : err
+            })
+            
+            return;
+        } 
+        fs.readFile('file.html', 'utf-8', function(error, data) {
+            var query = util.format(
+                'SELECT * FROM user_file where department = %s;',
+                mysql.escape(department)
+            );
+    
+            connection.query(query, function(err, result) {
+                if(err) {
+                    res.json({
+                        "code" : 2,
+                        "success" : false,
+                        "msg" : 'fail to connect database',
+                        "err" : err
+                    });
+                    return;
+                }
+    
+                res.json({
+                    data : result 
+                });
+            });
+        })
+    })
+})
+
 //서버에 있는 파일 리스트 보여주기
 router.get('/filepage', function(req, res) {
 
@@ -114,7 +153,7 @@ router.get('/filepage', function(req, res) {
         } 
         fs.readFile('file.html', 'utf-8', function(error, data) {
             var query = util.format(
-                'SELECT * FROM user_file'
+                'SELECT * FROM user_file',
             );
     
             connection.query(query, function(err, result) {
