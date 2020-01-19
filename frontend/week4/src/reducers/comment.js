@@ -108,7 +108,7 @@ export default function comment(state = initialState, action) {
                     }
                 }
             } else {
-                if(action.listTyp == 'new') {
+                if(action.listTyp === 'new') {
                     return {
                         ...state,
                         list : {

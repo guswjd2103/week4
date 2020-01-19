@@ -120,7 +120,7 @@ router.get('/fileList', function(req, res) {
     })
 })
 
-//서버에 있는 파일 리스트 보여주기
+//서버에 있는 유저의 파일 리스트 보여주기
 router.get('/filepage', function(req, res) {
 
     var path = __dirname + '/../' + 'public/uploads';
@@ -160,6 +160,46 @@ router.get('/filepage', function(req, res) {
     })
 })
 
+//과목에 해당하는 파일 리스트
+router.post('/getfileSubject', function(req, res) {
+
+    const subject = req.body.subject;
+
+    console.log(subject);
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : "mysql connection error",
+                "err" : err
+            })
+            
+            return;
+        } 
+        
+        var query = util.format(
+            'SELECT * FROM subject_files WHERE subject = %s;',
+            mysql.escape(subject)
+        );
+    
+            connection.query(query, function(err, result) {
+                if(err) {
+                    res.json({
+                        "code" : 2,
+                        "success" : false,
+                        "msg" : 'fail to connect database',
+                        "err" : err
+                    });
+                    return;
+                }
+    
+                res.json({
+                    "data" : result 
+                });
+            });
+    })
+})
 
 //서버에서 파일 다운받기
 router.get('/download/:name', function(req, res) {
@@ -171,9 +211,8 @@ router.get('/download/:name', function(req, res) {
 
 //파일에 해당하는 댓글 보여주기
 router.get('/getComment', function(req, res) {
-    // const filename = req.body.filename;
-    // console.log(filename);
     console.log(req.body);
+
     pool.getConnection(function(err, connection) {
         if(err) {
             res.json({
@@ -221,6 +260,92 @@ router.get('/getComment', function(req, res) {
                     'msg' : 'no exist comments'
                 })
                 console.log('fail');
+            }
+        })
+    })
+})
+
+//학과에 해당하는 과목 명 불러오기
+router.post('/getSubject', (req, res) => {
+    const department = req.body.department;
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "err" : err
+            });
+
+            return;
+        }
+        
+        var query = util.format(
+            'SELECT subject FROM subject_department WHERE department = %s;',
+            mysql.escape(department)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : "fail to connect database",
+                    "err" : err
+                });
+                return;
+
+            } else { 
+                console.log(data);
+                res.json({
+                    "code" : 0,
+                    "success"  :true,
+                    'msg' : 'successfully stored',
+                    "subject" : data
+                });
+            }
+        })
+    })
+})
+
+//과목 상세정보 알려주기
+router.post('/getSubjectDetail', (req, res) => {
+    const subject = req.body.subject;
+    
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "err" : err
+            });
+
+            return;
+        }
+        
+        var query = util.format(
+            'SELECT * FROM subject_details WHERE subject = %s;',
+            mysql.escape(subject)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : "fail to connect database",
+                    "err" : err
+                });
+                return;
+
+            } else { 
+                console.log(data);
+                res.json({
+                    "code" : 0,
+                    "success"  :true,
+                    'msg' : 'successfully stored',
+                    "data" : data
+                });
             }
         })
     })

@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import '../../login.css';
 import $ from 'jquery';
 import Materialize from 'materialize-css';
 
+=======
+import '../../style.css';  
+import { connect } from 'react-redux';
+ 
+>>>>>>> b5f7d8d11e7e964b1b123e105898adc42d91cab1
 class Authentication extends Component {
     state = {
       email:"",
@@ -207,7 +213,6 @@ class Authentication extends Component {
 Authentication.propTypes = {
     mode: PropTypes.bool,
     onRegister: PropTypes.func,
-    onLogin: PropTypes.func
 };
  
 Authentication.defaultProps = {
@@ -216,4 +221,12 @@ Authentication.defaultProps = {
     onLogin: (id, pw) => { console.error("login function not defined"); }
 };
  
-export default Authentication;
+const mapStateToProps = (state) => {
+    return {
+        status: state.authentication.login.status,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department
+    };
+};
+
+export default connect(mapStateToProps, null)(Authentication);

@@ -18,7 +18,11 @@ export function loginRequest(email, password) {
         return axios.post('/routes/account/login', { email, password }) //loginRequest가 실행되면 thunk함수의 인자를 post에 전송
         .then((response) => {
             // SUCCEED
-            dispatch(loginSuccess(email));
+            const data = response.data.data[0];
+            const name = data.name;
+            const department = data.department;
+            
+            dispatch(loginSuccess(email, name, department));
         }).catch((error) => {
             // FAILED
             dispatch(loginFailure());
@@ -32,10 +36,12 @@ export function login() {
     };
 }
 
-export function loginSuccess(email) {
+export function loginSuccess(email, name, department) {
     return {
         type: AUTH_LOGIN_SUCCESS,
-        email
+        email,
+        name,
+        department
     };
 }
 

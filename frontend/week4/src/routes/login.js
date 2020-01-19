@@ -16,7 +16,7 @@ class Login extends Component {
                         isLoggedIn: true,
                         email: id
                     };
-    
+
                     document.cookie = 'key=' + btoa(JSON.stringify(loginData));
     
                     Materialize.toast('Welcome, ' + id + '!', 2000);
@@ -39,7 +39,9 @@ class Login extends Component {
         return (
             <div>
                 <Authentication mode={true}
-                    onLogin={this.handleLogin}/>
+                    onLogin={this.handleLogin}
+                    name = {this.props.name}
+                    department = {this.props.department}/>
             </div>
         );
     }
@@ -47,7 +49,9 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        status: state.authentication.login.status
+        status: state.authentication.login.status,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department
     };
 };
  

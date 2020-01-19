@@ -1,29 +1,53 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import { render } from '@testing-library/react';
+import Axios from 'axios';
+import update from 'react-addons-update';
+import ShowFileList from './showFileList';
 
 class FileList extends Component {
-    constructor (props) {
-        super(props);
+
+    state = {
+        list : this.props.list,
+        fileList : [],
+        length : this.props.list.length
+    }
+    
+    componentDidMount() {
+        this.getDetails(this.state.list);
+    }
+
+    getDetails = (list) => {
+        return list.map(file=> {
+            const subject = file.subject;
+
+            Axios.post('/routes/fileList/getSubjectDetail', {subject})
+            .then(res => {
+                const data = res.data.data[0];
+                this.setState({
+                    fileList : update(
+                        this.state.fileList, {
+                            $push : [{
+                                subject : data.subject,
+                                professor : data.professor,
+                                department : data.department
+                            }]
+                        })
+                })
+            })
+
+        })
     }
 
     render() {
         return(
-            <u1 className="list_file">
-                {this.props.list.map((file,index)=>(
-                    <li key={index}>
-                        <Link to= {"/viewDetail/" + `${file.title}`} className="link_file"> 
-                            <div className="info_file">
-                                <strong className="tit_file">
-                                    {file.title}
-                                </strong>
-                                {file.producer}
-                                {file.illustration}
-                            </div>
-                        </Link>
-                    </li>
-                ))}
-            </u1>
+            <div>
+                {Object.keys(this.state.fileList).length == this.state.length ? 
+                    <ShowFileList list = {this.state.fileList}/>
+                :(
+                    <span>
+                        LOADING..
+                    </span> 
+                 )}
+            </div>
         )
     }
 }
