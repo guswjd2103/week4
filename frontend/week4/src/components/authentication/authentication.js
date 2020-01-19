@@ -1,15 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import '../../style.css';  
- 
+import '../../login.css';
+import $ from 'jquery';
+import Materialize from 'materialize-css';
+
 class Authentication extends Component {
     state = {
       email:"",
       password:"",
-      name : ""
+      name : "",
+      mode : true
     }
    
+    handleRight = () => {
+        $("#left").removeClass("left_hover");
+        $(".s2class").css({ color: "#EE9BA3" });
+        $(".s1class").css({ color: "#748194" });
+        $("#right").addClass("right_hover");
+        this.setState({
+            mode : false
+        })
+    }
+     
+    handleLeft = () => {
+        $(".s1class").css({ color: "#EE9BA3" });
+        $(".s2class").css({ color: "#748194" });
+        $("#right").removeClass("right_hover");
+        $("#left").addClass("left_hover");
+        this.setState({
+            mode : true
+        })
+    }
+    
+    handle = () => {
+        $(".s1class").css({ color: "#EE9BA3" });
+        $(".s2class").css({ color: "#748194" });
+        $("#right").removeClass("right_hover");
+        $("#left").addClass("left_hover");
+    }
+
     handleChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -62,118 +92,115 @@ class Authentication extends Component {
     }
  
     render() {
+        
+         
+        console.log('authentication');
         const inputBoxes = (
             <div>
-                <div className="input-field col s12 username">
-                    <label>Email</label>
+                <form class="signin">
+                    <h1 class="signup1">SIGN IN</h1>
+                    <br></br><br></br>
                     <input
                     name="email"
                     type="text"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.email}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
-                <div className="input-field col s12">
-                    <label>Password</label>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="email*"/>
                     <input
                     name="password"
                     type="password"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.password}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="password*"/>
+                </form>
             </div>
         );
 
         const inputBoxes2 = (
             <div>
-                <div className="input-field col s12 username">
-                    <label>Email</label>
+                <form class="signup">
+                    <h1 class="signup1">SIGN UP</h1>
+                    <br></br><br></br>
                     <input
                     name="email"
                     type="text"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.email}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
-                <div className="input-field col s12">
-                    <label>Password</label>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="email*"/>
                     <input
                     name="password"
                     type="password"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.password}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
-                <div className="input-field col s12">
-                    <label>NickName</label>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="password*"/>
                     <input
                     name="name"
                     type="text"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.name}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
-                <div className="input-field col s12">
-                    <label>Department</label>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="name*"/>
                     <input
                     name="department"
                     type="text"
-                    className="validate"
+                    className="username"
                     onChange={this.handleChange}
                     value={this.state.department}
-                    onKeyPress={this.handleKeyPress}/>
-                </div>
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="department*"/>
+                </form>
             </div>
         );
  
         const loginView = (
-            <div>
-                <div className="card-content">
-                    <div className="row">
-                        {inputBoxes}
-                        <a className="waves-effect waves-light btn"
-                          onClick={this.handleLogin}>SUBMIT</a>
-                    </div>
-                </div>
- 
- 
-                <div className="footer">
-                    <div className="card-content">
-                        <div className="right" >
-                        New Here? <Link to="/register">Create an account</Link>
-                        </div>
-                    </div>
-                </div>
- 
+            
+                
+            <div class="c2">
+                {inputBoxes}
+                <a class="btn1"
+                    onClick={this.handleLogin}>Get Started</a>
             </div>
+            
+            
         );
  
         const registerView = (
-            <div className="card-content">
-                <div className="row">
+            
+                <div class="c2">
                     {inputBoxes2}
-                    <a className="waves-effect waves-light btn"
-                      onClick={this.handleRegister}>CREATE</a>
+                    <a class="btn2"
+                      onClick={this.handleRegister}>Sign Up</a>
                 </div>
-            </div>
+            
         );
+        
+        $(document).ready(function() {
+            $(".container").fadeIn(0);
+         });
+         
         return (
-          <div className="container auth">
-              <Link className="logo" to="/">MadCamp</Link>
-              <div className="card">
-                  <div className="header blue white-text center">
-                      <div className="card-content">{this.props.mode ? "LOGIN" : "REGISTER"}</div>
-                  </div>
-                  {this.props.mode ? loginView : registerView }
-              </div>
-          </div>
-        );
+        <div class="container">
+            <div class="c1">
+            <div class="c11">
+                <h1 class="mainhead">MADCAMP</h1>
+                <p class="mainp">STUDY and MONEY</p>
+            </div>
+                    <div id="left" onClick = {this.handleLeft}><h1 class="s1class"><span>SIGN</span><span class="su">IN</span></h1></div>
+                    <div id="right" onClick = {this.handleRight}> <h1 class="s2class"><span>SIGN</span><span class="su">UP</span></h1></div>    
+            </div>
+                {this.state.mode ? loginView : registerView }
+
+        </div>
+        );  
     }
 }
  

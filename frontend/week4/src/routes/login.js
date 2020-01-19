@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loginRequest } from '../actions/authentication';
 import Materialize from 'materialize-css';
 import $ from 'jquery';
-import '../style.css';
+
 
 class Login extends Component {
     handleLogin = (id, pw) => {
