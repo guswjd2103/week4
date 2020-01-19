@@ -20,3 +20,14 @@ CREATE TABLE file_comments (
     filename VARCHAR(225) NOT NULL DEFAULT '',
     comment VARCHAR(1000) NOT NULL DEFAULT ''
 ) ENGINE = INNODB;
+
+CREATE TABLE subject_department (
+    department VARCHAR(225) NOT NULL DEFAULT '',
+    subject VARCHAR(225) NOT NULL PRIMARY KEY DEFAULT ''
+) ENGINE = INNODB;
+
+CREATE TABLE subject_details (
+    subject VARCHAR(225) NOT NULL PRIMARY KEY DEFAULT '',
+    producer VARCHAR(30) NOT NULL DEFAULT '',
+    department VARCHAR(225) NOT NULL DEFAULT ''
+) ENGINE = INNODB;

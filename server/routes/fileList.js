@@ -226,6 +226,92 @@ router.get('/getComment', function(req, res) {
     })
 })
 
+//학과에 해당하는 과목 명 불러오기
+router.post('/getSubject', (req, res) => {
+    const department = req.body.department;
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "err" : err
+            });
+
+            return;
+        }
+        
+        var query = util.format(
+            'SELECT subject FROM subject_department WHERE department = %s;',
+            mysql.escape(department)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : "fail to connect database",
+                    "err" : err
+                });
+                return;
+
+            } else { 
+                console.log(data);
+                res.json({
+                    "code" : 0,
+                    "success"  :true,
+                    'msg' : 'successfully stored',
+                    "subject" : data
+                });
+            }
+        })
+    })
+})
+
+//과목 상세정보 알려주기
+router.post('/getSubjectDetail', (req, res) => {
+    const subject = req.body.subject;
+    
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "err" : err
+            });
+
+            return;
+        }
+        
+        var query = util.format(
+            'SELECT * FROM subject_details WHERE subject = %s;',
+            mysql.escape(subject)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : "fail to connect database",
+                    "err" : err
+                });
+                return;
+
+            } else { 
+                console.log(data);
+                res.json({
+                    "code" : 0,
+                    "success"  :true,
+                    'msg' : 'successfully stored',
+                    "data" : data
+                });
+            }
+        })
+    })
+})
+
 //댓글 추가하기
 router.post('/addComment', (req, res) => {
     const username = req.body.username;

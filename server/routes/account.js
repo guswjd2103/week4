@@ -81,12 +81,8 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log('loginrouter');
   var email = req.body.email;
   var password = req.body.password;
-
-  console.log(email);
-  console.log(password);
 
   pool.getConnection(function(err, connection) {
     if(err) { 
