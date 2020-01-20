@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import FileList from '../routes/fileList';
-import {Button} from 'semantic-ui-react'; 
+import {Button} from 'semantic-ui-react';
+import '../file.css';
 
 class ShowFileList extends Component {
 
@@ -25,14 +26,12 @@ class ShowFileList extends Component {
             <div class='file-container'>
                 <div class='sidebar'>
                     {this.props.list.map((file,index)=>(
-                        <ul>
-                            <li key={index}>
-                                <div class='navigation-elm'><span class='nav-text'><i class="fa fa-fw fa-area-chart"></i>
+                        
+                                <div class='navigation-elm' key={index}><span class='nav-text'><i class="fa fa-fw fa-area-chart"></i>
                                 <span class='text-short' onClick={()=>this.handleOnClick(file.subject)}>{file.subject}</span>
-                                <span class='text-long'>{file.professor}</span>
+                                <div></div>
+                                <i class="fa fa-fw fa-area-chart"></i><span class='text-long'>{file.professor}</span>
                                     </span></div>
-                            </li>
-                        </ul>
                     ))}
                 </div>
             </div>

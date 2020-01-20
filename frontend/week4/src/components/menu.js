@@ -1,24 +1,17 @@
 import React, {Component} from 'react';
 import {File} from '../routes';
 import { connect } from 'react-redux';
+import Header from '../components/header';
 
 class Menu extends Component {
-
+    
     render() {
         return (
             <div>
-                <File />
+                <Header></Header>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        status: state.authentication.login.status,
-        name : state.authentication.status.name,
-        department : state.authentication.status.department
-    };
-};
-
-export default connect(mapStateToProps, null)(Menu);
+export default connect(null, null)(Menu);

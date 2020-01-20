@@ -40,7 +40,7 @@ class Write extends Component {
                     <div>
                         <input
                                 name = "filename"
-                                placeholder="Filename"
+                                placeholder="Title"
                                 type = "text"
                                 onChange = {this.handleChange}
                                 value = {this.state.filename}/>
@@ -48,7 +48,7 @@ class Write extends Component {
                     <div>
                         <input
                                 name = "content"
-                                placeholder="Write down notification"
+                                placeholder="Write down Comment"
                                 type = "text"
                                 onChange = {this.handleChange}
                                 value = {this.state.content}/>
@@ -63,7 +63,7 @@ class Write extends Component {
             <div>
               <div>
                 <div>
-                    <div>파일 등록하기</div>
+                    <div>댓글 등록하기</div>
                 </div>
                 {writeView}
               </div>

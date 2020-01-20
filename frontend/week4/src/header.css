@@ -67,7 +67,7 @@
     .header-navigation.responsive .header-navigation-links a.icon {
       background-color: rgba(	83, 173, 203, 1);
       color: #fff;
-      cursor: pointer;
+      /* cursor: pointer; */
       
     }
     

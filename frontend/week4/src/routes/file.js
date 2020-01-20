@@ -3,7 +3,6 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Header from '../components/header';
 import FileList from '../components/FileList';
-import '../file.css';
 
 class File extends Component{
     state={
@@ -35,18 +34,11 @@ class File extends Component{
         });
     }
 
-    // filterData = (fileList) => {
-    //     return fileList.filter(file => (
-    //         file.school === this.state.school
-    //     ));
-    // }
-
     render(){ 
         return(
             <div>
-                <Header></Header>
+                
                 {Object.keys(this.state.fileList).length > 0 ? 
-                    // <FileList list= {this.filterData(this.state.fileList)}/>
                     <FileList list = {this.state.fileList} />
                 :(
                     <span>

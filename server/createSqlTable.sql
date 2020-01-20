@@ -12,6 +12,16 @@ CREATE TABLE user_file (
     username VARCHAR(30) NOT NULL DEFAULT '',
     filename VARCHAR(255) NOT NULL DEFAULT '',
     type VARCHAR(100) NOT NULL,
+    size int(11) NOT NULL,
+    method VARCHAR(30) NOT NULL DEFAULT ''
+) ENGINE = INNODB;
+
+-- 사용자가 다운받은 리스트
+CREATE TABLE user_downloadFile(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL DEFAULT '',
+    filename VARCHAR(255) NOT NULL DEFAULT '',
+    type VARCHAR(100) NOT NULL,
     size int(11) NOT NULL
 ) ENGINE = INNODB;
 
