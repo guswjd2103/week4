@@ -17,7 +17,7 @@ class FileList extends Component {
     getFileList() {
         const subject = this.props.subject;
 
-        return Axios.post('/routes/fileList/getfileSubject', {subject})
+        return Axios.post('/routes/fileList/getfileSubject', {subject}) //과목에 해당하는 파일 리스트
         .then(res => {
             console.log(res.data.data);
             const data = res.data.data;

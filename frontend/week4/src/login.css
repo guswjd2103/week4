@@ -14,7 +14,7 @@ body {
 :-moz-placeholder { /* Firefox 18- */
   color: #748194;
 }
-.container{
+.login-container{
    display:none;
    position:absolute;
 	width: auto;
@@ -23,7 +23,7 @@ body {
 	left: calc(40% - 160px);
    border-radius:15px 15px 15px 15px;
 }
-.c1{
+.login-c1{
    box-shadow:0 0 10px grey;
    background-color:white;
    width:300px;
@@ -69,20 +69,20 @@ body {
    z-index:1;
    position:absolute;
 }
-.s1class{
+.login-s1class{
    color:#748194;
    position:absolute;
    bottom:0;
    left:63%;
    margin-left: -50%;
 }
-.s1class span,  .s2class span{
+.login-s1class span,  .login-s2class span{
    display:block;
 }
 .su{
    font-size:20px;
 }
-.s2class{
+.login-s2class{
    color:#748194;
    position:absolute;
    bottom:0;
@@ -101,7 +101,7 @@ body {
    text-align:center;
    margin-top:10px;
 }
-.c2{
+.login-c2{
    background-color:white;
    width:300px;
    height:500px;
@@ -110,7 +110,7 @@ body {
    left:370px;
    display:inline-block;
 }
-.username{
+.login-username{
    font-weight: bold;
    width: 200px;
    margin: 0 35px 20px ;

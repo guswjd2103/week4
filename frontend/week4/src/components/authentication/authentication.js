@@ -15,8 +15,8 @@ class Authentication extends Component {
    
     handleRight = () => {
         $("#left").removeClass("left_hover");
-        $(".s2class").css({ color: "#EE9BA3" });
-        $(".s1class").css({ color: "#748194" });
+        $(".login-s2class").css({ color: "#EE9BA3" });
+        $(".login-s1class").css({ color: "#748194" });
         $("#right").addClass("right_hover");
         this.setState({
             mode : false
@@ -24,8 +24,8 @@ class Authentication extends Component {
     }
      
     handleLeft = () => {
-        $(".s1class").css({ color: "#EE9BA3" });
-        $(".s2class").css({ color: "#748194" });
+        $(".login-s1class").css({ color: "#EE9BA3" });
+        $(".login-s2class").css({ color: "#748194" });
         $("#right").removeClass("right_hover");
         $("#left").addClass("left_hover");
         this.setState({
@@ -34,8 +34,8 @@ class Authentication extends Component {
     }
     
     handle = () => {
-        $(".s1class").css({ color: "#EE9BA3" });
-        $(".s2class").css({ color: "#748194" });
+        $(".login-s1class").css({ color: "#EE9BA3" });
+        $(".login-s2class").css({ color: "#748194" });
         $("#right").removeClass("right_hover");
         $("#left").addClass("left_hover");
     }
@@ -93,7 +93,6 @@ class Authentication extends Component {
  
     render() {
         
-         
         console.log('authentication');
         const inputBoxes = (
             <div>
@@ -103,7 +102,7 @@ class Authentication extends Component {
                     <input
                     name="email"
                     type="text"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.email}
                     onKeyPress={this.handleKeyPress}
@@ -111,7 +110,7 @@ class Authentication extends Component {
                     <input
                     name="password"
                     type="password"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.password}
                     onKeyPress={this.handleKeyPress}
@@ -128,7 +127,7 @@ class Authentication extends Component {
                     <input
                     name="email"
                     type="text"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.email}
                     onKeyPress={this.handleKeyPress}
@@ -136,7 +135,7 @@ class Authentication extends Component {
                     <input
                     name="password"
                     type="password"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.password}
                     onKeyPress={this.handleKeyPress}
@@ -144,7 +143,7 @@ class Authentication extends Component {
                     <input
                     name="name"
                     type="text"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.name}
                     onKeyPress={this.handleKeyPress}
@@ -152,7 +151,7 @@ class Authentication extends Component {
                     <input
                     name="department"
                     type="text"
-                    className="username"
+                    className="login-username"
                     onChange={this.handleChange}
                     value={this.state.department}
                     onKeyPress={this.handleKeyPress}
@@ -164,7 +163,7 @@ class Authentication extends Component {
         const loginView = (
             
                 
-            <div class="c2">
+            <div class="login-c2">
                 {inputBoxes}
                 <a class="btn1"
                     onClick={this.handleLogin}>Get Started</a>
@@ -175,7 +174,7 @@ class Authentication extends Component {
  
         const registerView = (
             
-                <div class="c2">
+                <div class="login-c2">
                     {inputBoxes2}
                     <a class="btn2"
                       onClick={this.handleRegister}>Sign Up</a>
@@ -184,18 +183,18 @@ class Authentication extends Component {
         );
         
         $(document).ready(function() {
-            $(".container").fadeIn(0);
+            $(".login-container").fadeIn(0);
          });
          
         return (
-        <div class="container">
-            <div class="c1">
+        <div class="login-container">
+            <div class="login-c1">
             <div class="c11">
                 <h1 class="mainhead">MADCAMP</h1>
                 <p class="mainp">STUDY and MONEY</p>
             </div>
-                    <div id="left" onClick = {this.handleLeft}><h1 class="s1class"><span>SIGN</span><span class="su">IN</span></h1></div>
-                    <div id="right" onClick = {this.handleRight}> <h1 class="s2class"><span>SIGN</span><span class="su">UP</span></h1></div>    
+                    <div id="left" onClick = {this.handleLeft}><h1 class="login-s1class"><span>SIGN</span><span class="su">IN</span></h1></div>
+                    <div id="right" onClick = {this.handleRight}> <h1 class="login-s2class"><span>SIGN</span><span class="su">UP</span></h1></div>    
             </div>
                 {this.state.mode ? loginView : registerView }
 

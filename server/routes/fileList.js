@@ -210,7 +210,8 @@ router.get('/download/:name', function(req, res) {
 });
 
 //파일에 해당하는 댓글 보여주기
-router.post('/getComment', function(req, res) {
+router.get('/getComment', function(req, res) {
+    console.log(req.body);
 
     pool.getConnection(function(err, connection) {
         if(err) {

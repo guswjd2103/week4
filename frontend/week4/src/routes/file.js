@@ -3,6 +3,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Header from '../components/header';
 import FileList from '../components/FileList';
+// import '../file.css';
+// import '../file.scss';
 
 class File extends Component{
     state={
@@ -17,7 +19,7 @@ class File extends Component{
 
     _getList(){
         // const apiUrl='dummy/file_list.json';
-        const apiUrl = "/routes/fileList/getSubject";
+        const apiUrl = "/routes/fileList/getSubject"; //학과에 해당하는 과목명
         const department = this.state.school;
 
         axios.post(apiUrl, {department}) /**axios.get('/filepage') */
