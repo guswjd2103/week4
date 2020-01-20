@@ -26,7 +26,7 @@ class Upload extends Component{
 
         axios.post(apiUrl, formData)
         .then(res => {
-            alert('success');
+            // alert('success');
         }).catch (err => alert('실패')) 
     }
 

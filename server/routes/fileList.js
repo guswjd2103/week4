@@ -250,8 +250,10 @@ router.post('/getfileSubject', function(req, res) {
 })
 
 //서버에서 파일 다운받기
-router.get('/download/:name', function(req, res) {
-    var filename = req.params.name;
+router.get('/download', function(req, res) {
+    var filename = req.query.name;
+    console.log('downlaod');
+    console.log(filename);
 
     var file = __dirname + '/../public/uploads/' + filename;
     res.download(file);
@@ -271,11 +273,6 @@ router.get('/getComment', function(req, res) {
             });
             return;
         }
-
-        // var query = util.format(
-        //     'SELECT comment FROM file_comments WHERE filename = %s;',
-        //     mysql.escape(filename)
-        // );
 
         var query = util.format(
             'SELECT comment FROM file_comments WHERE filename = %s;',

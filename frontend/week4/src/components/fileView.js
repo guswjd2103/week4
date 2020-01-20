@@ -1,25 +1,40 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {Button} from 'semantic-ui-react'; 
+import Axios from 'axios';
 
-const FileView=(props)=>{
-    const subject = props.subject;
-    const producer = props.producer;
-    const illustration = props.illustration;
-    const filename = props.filename;
-    console.log('fileview comp');
-    return(
-        <div>
-            <strong>{filename}</strong>
+class FileView extends Component {
+
+    handleDownload= (filename) => {
+        Axios.get('/routes/fileList/download/', {params : {name : filename}})
+        .then(res => {
+            console.log('download success');
+            alert('success');
+        }).catch(err => alert('실패'))
+    }
+
+    render() {
+        const subject = this.props.subject;
+        const producer = this.props.producer;
+        const illustration = this.props.illustration;
+        const filename = this.props.filename;
+
+        return(
             <div>
-                subject : {subject}
+                <strong>{filename}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                <Button onClick = {() => this.handleDownload(filename)}>Download</Button>
+                <div>
+                    subject : {subject}
+                </div>
+                <div>
+                    producer : {producer}
+                </div>
+                <div>
+                    illustration : {illustration}
+                </div>
             </div>
-            <div>
-                producer : {producer}
-            </div>
-            <div>
-                illustration : {illustration}
-            </div>
-        </div>
-    )
+        )
+    }
+    
 }
 
 export default FileView
