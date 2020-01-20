@@ -24,26 +24,26 @@ class ShowFileList extends Component {
         return (
             <div>
                 <div>
-                {this.props.list.map((file,index)=>(
-                    <ul>
-                        <li key={index}>
-                            {/* <Link to= {{
-                                pathname : "/fileList",
-                                state : {
-                                    subject : file.subject
-                                }
-                            }} className="link_file">  */}
-                                <div className="info_file">
-                                    <strong className="tit_file">
-                                        <a onClick = {() => this.handleOnClick(file.subject)}>{file.subject} - {file.professor}</a>
-                                    </strong>
-                                    
-                                </div>
-                            {/* </Link> */}
-                        </li>
-                    </ul>
-                ))}
-            </div>
+                    {this.props.list.map((file,index)=>(
+                        <ul>
+                            <li key={index}>
+                                {/* <Link to= {{
+                                    pathname : "/fileList",
+                                    state : {
+                                        subject : file.subject
+                                    }
+                                }} className="link_file">  */}
+                                    <div className="info_file">
+                                        <strong className="tit_file">
+                                            <a onClick = {() => this.handleOnClick(file.subject)}>{file.subject} - {file.professor}</a>
+                                        </strong>
+                                        
+                                    </div>
+                                {/* </Link> */}
+                            </li>
+                        </ul>
+                    ))}
+                </div>
             <div>
                 {this.state.subject ? <FileList subject = {this.state.subject}/> : null}
                 

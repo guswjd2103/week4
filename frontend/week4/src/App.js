@@ -3,7 +3,7 @@ import './App.css';
 import {connect} from 'react-redux';
 import {Login, Register, Home, File, ViewDetail, Upload} from './routes';
 import {Menu} from './components';
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
 
 
 class App extends Component {
@@ -12,14 +12,17 @@ class App extends Component {
   } 
   render() {
     return (
-        <div>
-          <Route exact path="/" component={Login}/>
-          <Switch>
-            <Route path ="/viewDetail/:fileId" component = {ViewDetail}/>
-            <Route path="/Menu" component= {Menu}/>
-            <Route path="/upload" component= {Upload}/>
-          </Switch>
-      </div>
+      <Router>
+          <div>
+            <Route exact path="/" component={Login}/>
+            <Switch>
+              <Route path ="/viewDetail/:filename" component = {ViewDetail}/>
+              <Route path="/Menu" component= {Menu}/>
+              <Route path="/upload" component= {Upload}/>
+            </Switch>
+          </div>
+      </Router>
+        
     );
   }
 }

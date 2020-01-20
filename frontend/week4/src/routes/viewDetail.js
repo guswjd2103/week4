@@ -8,14 +8,14 @@ import { commentPostRequest, commentEditRequest, commentListRequest, commentRemo
 import axios from 'axios';
 import FileView from '../components/fileView'
 
-class ViewDetail extends Component {
+class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 다운로드 버튼을 누르면 다운 될 수 있도록 해야함
     
-    constructor(props){
-        super(props);
-        this.state={
-            fileId:parseInt(this.props.match.params.fileId, 10),//get fileId to integer
-            file:{}//file object
-        }
+    state={
+        filename: this.props.match.params.filename, //get fileId to integer
+        subject:'',//file object
+        producer : '',
+        illustration : '',
+        mode : false
     }
 
     handlePost = (username, filename, content) => {
@@ -30,8 +30,8 @@ class ViewDetail extends Component {
         );
     }
     
-    handleEdit = (username, comment_id, filename, content) => {
-        return this.props.commentEditRequest(username, comment_id, filename, content).then(
+    handleEdit = (username, filename, comment) => {
+        return this.props.commentEditRequest(username, filename, comment).then(
             () => {
                 if(this.props.editStatus.status ==="SUCCESS") {
                     Materialize.toast('Success!',2000);
@@ -60,8 +60,8 @@ class ViewDetail extends Component {
         )
     }
 
-    handleRemove = (user_id, comment_id) => {
-        this.props.commentRemoveRequest(user_id, comment_id).then(() => {
+    handleRemove = (username, comment) => {
+        this.props.commentRemoveRequest(username, comment).then(() => {
             if(this.props.removeStatus.status==="SUCCESS") {
             } else {
                 let errorMessage = [
@@ -85,25 +85,24 @@ class ViewDetail extends Component {
     }
 
     componentDidMount() {
-        this.props.commentListRequest(true, undefined, undefined);
-
+        this.props.commentListRequest(true, undefined, this.state.filename); 
         this._getFile();
     }
 
     _getFile(){
         const apiUrl='/dummy/file_list.json';
 
-        axios.get(apiUrl) /**axios.get('/download/:name') */
-        .then(data=> {
+        const filename = this.state.filename;
+        axios.post('/routes/fileList/getFileDetail', {filename}) /**axios.get('/download/:name') */
+        .then(res=> {
             //save file that matches fileId
+            const data = res.data.data[0];
             this.setState({
-                file:data.data.fileList.filter(f=>(
-                    f.id===this.state.fileId
-                ))
+                subject : data.subject,
+                producer : data.producer,
+                illustration : data.illustration,
+                mode : true
             });
-            console.log("this.state.fileId"+this.state.fileId); //NaN
-            console.log("props"+this.props.match.params.fileId); //${file.id}
-            console.log("propsInt"+parseInt(this.props.match.params.fileId)); //NaN
         })
         .catch(error=>{
             console.log(error);
@@ -111,23 +110,27 @@ class ViewDetail extends Component {
     }
 
     render() {
-        // console.log(this.props.location.state.subject);
-
         const write = (<Write onPost = {this.handlePost}/>);
         return (
             <div className = "wrapper">
-                
-                {this.state.file.id?(
-                    <FileView file={this.state.file}/>
-                ):(
+                {this.state.mode ?
+                <div>
+                    <FileView subject = {this.state.subject}
+                            producer = {this.state.producer}
+                            illustration = {this.state.illustration}
+                            filename = {this.state.filename}/>
+                    <Write onPost = {this.handlePost}/>
+                    <CommentList data = {this.props.commentData}
+                                onEdit = {this.handleEdit}
+                                onRemove = {this.handleRemove}/>
+                </div>
+                :
                     <span>LOADING...</span>
-                )}
-
-                {write}
-                <CommentList data = {this.props.commentData}
-                             onEdit = {this.handleEdit}
-                             onRemove = {this.handlePost}/> 
+                } 
+            
+                
             </div>
+            
         );
     }
 }
@@ -135,6 +138,8 @@ class ViewDetail extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn : state.authentication.status.isLoggedIn,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department,
         postStatus : state.comment.post,
         editStatus : state.comment.edit,
         removeStatus : state.comment.remove,
@@ -149,14 +154,14 @@ const mapDispatchToProps = (dispatch) =>{
         commentPostRequest: (username, title, content) => {
             return dispatch(commentPostRequest(username, title, content));
         }, 
-        commentEditRequest : (username, comment_id , title, content) => {
-            return dispatch(commentEditRequest(username, comment_id, title, content));
+        commentEditRequest : (username,filename, comment) => {
+            return dispatch(commentEditRequest(username, filename, comment));
         },
         commentListRequest: (isInitial, listType, filename) => {
             return dispatch(commentListRequest(isInitial, listType, filename));
         },
-        commentRemoveRequest : (user_id, comment_id) => {
-            return dispatch(commentRemoveRequest(user_id, comment_id));
+        commentRemoveRequest : (username, comment) => {
+            return dispatch(commentRemoveRequest(username, comment));
         }
     };
 };

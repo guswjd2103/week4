@@ -1,11 +1,22 @@
 import React from 'react';
 
 const FileView=(props)=>{
-    const file=props.file;
+    const subject = props.subject;
+    const producer = props.producer;
+    const illustration = props.illustration;
+    const filename = props.filename;
+    console.log('fileview comp');
     return(
-        <div className="wrap_file">
-            <div className="info_file">
-                <strong className="tit_file">{file.title}</strong>
+        <div>
+            <strong>{filename}</strong>
+            <div>
+                subject : {subject}
+            </div>
+            <div>
+                producer : {producer}
+            </div>
+            <div>
+                illustration : {illustration}
             </div>
         </div>
     )

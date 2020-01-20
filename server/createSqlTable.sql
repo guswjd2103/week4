@@ -42,3 +42,13 @@ CREATE TABLE subject_files (
     filename VARCHAR(225) NOT NULL DEFAULT '',
     subject VARCHAR(225) NOT NULL DEFAULT ''
 ) ENGINE = INNODB;
+
+-- 파일 상세정보
+CREATE TABLE file_details (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    filename VARCHAR(225) NOT NULL DEFAULT '',
+    subject VARCHAR(225) NOT NULL DEFAULT '',
+    producer VARCHAR(225) NOT NULL DEFAULT '',
+    illustration VARCHAR(1000) NOT NULL DEFAULT ''
+
+) ENGINE = INNODB;
