@@ -15,16 +15,17 @@ class Authentication extends Component {
     }
 
     handleSpinner=()=>{
-        this.preventDefault();
-        this.stopPropagation();
-        $(this).toggleClass('expanded');
-        $('#'+$(this.target).attr('for')).prop('checked',true);
+        $("#spinner").click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).toggleClass('expanded');
+            $('#'+$(e.target).attr('for')).prop('checked',true);
+          });
+          $(document).click(function() {
+            $('.dropdown-el').removeClass('expanded');
+            console.log($(this).attr('value'));
+          });
     }
-
-    // $(document).click(function() {
-    // $('.dropdown-el').removeClass('expanded');
-    // });
-
 
     handleRight = () => {
         $("#left").removeClass("left_hover");
@@ -105,8 +106,6 @@ class Authentication extends Component {
     }
  
     render() {
-        
-        console.log('authentication');
         const inputBoxes = (
             <div>
                 <form class="signin">
@@ -128,6 +127,9 @@ class Authentication extends Component {
                     value={this.state.password}
                     onKeyPress={this.handleKeyPress}
                     placeholder="password*"/>
+                    <br></br><br></br>
+                    <a class="btn1"
+                    onClick={this.handleLogin}>Get Started</a>
                 </form>
             </div>
         );
@@ -161,7 +163,15 @@ class Authentication extends Component {
                     value={this.state.name}
                     onKeyPress={this.handleKeyPress}
                     placeholder="name*"/>
-                    <span class="dropdown-el" onClick={this.handleSpinner}></span>
+                    <span 
+                    class="dropdown-el" 
+                    id="spinner"
+                    onClick={this.handleSpinner}>
+                        <input type="radio" name="sortType" value="school of computing" checked="checked" id="sort-relevance"/><label for="sort-relevance">school of computing</label>
+                        <input type="radio" name="sortType" value="industrial design" id="sort-high"/><label for="sort-high">industrial design</label>
+                        <input type="radio" name="sortType" value="electrical engineering" id="sort-brand"/><label for="sort-brand">electrical engineering</label>
+                        <input type="radio" name="sortType" value="industrial engineering" id="sort-name"/><label for="sort-name">industrial engineering</label>
+                    </span>
                     {/* <input
                     name="department"
                     type="text"
@@ -170,29 +180,23 @@ class Authentication extends Component {
                     value={this.state.department}
                     onKeyPress={this.handleKeyPress}
                     placeholder="department*"/> */}
+                    <div><a class="btn2"
+                    onClick={this.handleRegister}>Sign Up</a>
+                    </div>
                 </form>
             </div>
         );
  
-        const loginView = (
-            
-                
+        const loginView = ( 
             <div class="login-c2">
                 {inputBoxes}
-                <a class="btn1"
-                    onClick={this.handleLogin}>Get Started</a>
             </div>
-            
-            
         );
  
         const registerView = (
-            
-                <div class="login-c2">
-                    {inputBoxes2}
-                    <a class="btn2"
-                      onClick={this.handleRegister}>Sign Up</a>
-                </div>
+            <div class="login-c2">
+                {inputBoxes2}
+            </div>
             
         );
         

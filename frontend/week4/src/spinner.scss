@@ -1,20 +1,9 @@
 $color:#3694d7;
 $timing:.3s;
 
-body {
-  text-align:center;
-  background:mix($color,#fff,10%);
-  min-height:95vh;
-  margin:0;
-  padding:0;
-  border-bottom: 5vh solid $color;
-  font-family: "Myriad Pro","Arial",sans;
-  font-size:24px;
-}
 .dropdown-el {
-  margin-top:20vh;
-    
-  min-width: 12em;
+  margin-left: 2.5em;
+  min-width: 13em;
   position: relative;
   display: inline-block;
   margin-right: 1em;
@@ -26,11 +15,11 @@ body {
   text-align: left;
   white-space: nowrap;
   color: #444;
-  
   outline: none;
   border: .06em solid transparent;
   border-radius: 1em;
   background-color: mix($color,#fff,25%);
+  margin-bottom:3em;
   
   transition: $timing all ease-in-out;
   input:focus + label {
@@ -49,7 +38,7 @@ body {
     height: 2em;
     line-height: 2em;
     padding-left: 1em;
-    padding-right: 3em;
+    padding-right: 4.5em;
     cursor: pointer;
     position: relative;
     transition: $timing color ease-in-out;  
