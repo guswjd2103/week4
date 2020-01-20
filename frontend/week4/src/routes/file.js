@@ -36,18 +36,11 @@ class File extends Component{
         });
     }
 
-    // filterData = (fileList) => {
-    //     return fileList.filter(file => (
-    //         file.school === this.state.school
-    //     ));
-    // }
-
     render(){ 
         return(
             <div>
-                <Header></Header>
+                
                 {Object.keys(this.state.fileList).length > 0 ? 
-                    // <FileList list= {this.filterData(this.state.fileList)}/>
                     <FileList list = {this.state.fileList} />
                 :(
                     <span>

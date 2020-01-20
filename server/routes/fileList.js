@@ -32,10 +32,7 @@ function checkFileType(file, cb) {
     }
 }
 
-// router.get('/', function(req, res) {
-//     res.send('index');
-// });
-
+//파일 업로드하면 서버에 저장해주기
 router.post('/uploadFile', upload.single('file'), function(req, res) {
 
     console.log('file upload');
@@ -43,6 +40,7 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
     const filename = req.file.filename; //file path
     const type = req.file.mimetype;
     const size = req.file.size;
+    const method = "upload";
 
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -56,11 +54,12 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
         }
 
         var query = util.format(
-            'INSERT INTO user_file (username, filename, type, size) VALUES (%s, %s, %s, %d)',
+            'INSERT INTO user_file (username, filename, type, size, method) VALUES (%s, %s, %s, %d, %s)',
             mysql.escape(username),
             mysql.escape(filename),
             mysql.escape(type),
-            mysql.escape(size)
+            mysql.escape(size),
+            mysql.escape(method)
         );
 
         connection.query(query, function(err, data) {
@@ -81,6 +80,7 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
     })
 });
 
+//학과에 해당하는 과목 리스트 보여주기
 router.get('/fileList', function(req, res) {
     var department = req.body.department;
 
@@ -120,8 +120,10 @@ router.get('/fileList', function(req, res) {
     })
 })
 
-//서버에 있는 유저의 파일 리스트 보여주기
-router.get('/filepage', function(req, res) {
+//서버에 있는 유저의 업로드 파일 리스트 보여주기
+router.get('/getUserUploadFile', function(req, res) {
+    const username = req.body.username;
+    const method = req.body.method;
 
     var path = __dirname + '/../' + 'public/uploads';
 
@@ -138,7 +140,9 @@ router.get('/filepage', function(req, res) {
         } 
         fs.readFile('file.html', 'utf-8', function(error, data) {
             var query = util.format(
-                'SELECT * FROM user_file',
+                'SELECT * FROM user_file WHERE username = %s and method = %s;',
+                mysql.escape(username),
+                mysql.escape(method)
             );
     
             connection.query(query, function(err, result) {
@@ -153,7 +157,51 @@ router.get('/filepage', function(req, res) {
                 }
     
                 res.json({
-                    data : result 
+                    "data" : result 
+                });
+            });
+        })
+    })
+})
+
+//서버에 있는 유저의 다운로드 파일 리스트 보여주기
+router.get('/getUserUploadFile', function(req, res) {
+    const username = req.body.username;
+    const method = req.body.method;
+
+    var path = __dirname + '/../' + 'public/uploads';
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : "mysql connection error",
+                "err" : err
+            })
+            
+            return;
+        } 
+        fs.readFile('file.html', 'utf-8', function(error, data) {
+            var query = util.format(
+                'SELECT * FROM user_file WHERE username = %s and method = %s;',
+                mysql.escape(username),
+                mysql.escape(method)
+            );
+    
+            connection.query(query, function(err, result) {
+                if(err) {
+                    res.json({
+                        "code" : 2,
+                        "success" : false,
+                        "msg" : 'fail to connect database',
+                        "err" : err
+                    });
+                    return;
+                }
+    
+                res.json({
+                    "data" : result 
                 });
             });
         })
@@ -230,7 +278,7 @@ router.get('/getComment', function(req, res) {
         // );
 
         var query = util.format(
-            'SELECT * FROM file_comments;'
+            'SELECT comment FROM file_comments WHERE filename = %s;',
         );
 
         connection.query(query, function(err, data) {
@@ -447,11 +495,6 @@ router.post('/updateComment', function(req, res){
     var filename = req.body.filename;
     var comment = req.body.comment;
 
-    console.log(username);
-    console.log(filename);
-    console.log(comment);
-    console.log('update');
-
     pool.getConnection(function(err, connection) {
       if(err) {
         // console.log('database connection error');
@@ -505,9 +548,7 @@ router.post('/updateComment', function(req, res){
 router.post('/deleteComment', function(req, res){
     var username = req.body.username;
     var comment = req.body.comment;
-
-    console.log('delete');
-
+    
     pool.getConnection(function(err, connection) {
       if(err) {
         // console.log('database connection error');

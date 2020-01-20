@@ -13,7 +13,6 @@ class Comment extends Component {
         content : this.props.data.content,
         title : this.props.data.title,
         comment : this.props.data.comment,
-        onRemove : false
     }
     
     toggleEditContent = () => {
@@ -50,31 +49,10 @@ class Comment extends Component {
         let username = this.props.data.username;
         let comment = this.props.data.comment;
 
-        this.props.commentRemoveRequest(username, comment).then(() => {
-            if(this.props.removeStatus.status==="SUCCESS") {
-                console.log('hihi');
-                this.setState({
-                    comment : ''
-                })
-            }
-        })
-        // this.props.onRemove(username, comment).then(
-        //     () => {
-        //         if(this.props.editStatus.status === "SUCCESS") {
-        //             console.log('success~');
-        //         }
-        //     }
-        // );
-        // if(this.props.editStatus.status === "SUCCESS"){
-        //     console.log('success!!!');
-        //     this.setState({
-        //         onEdit : true
-        //     })
-        // }
+        this.props.onRemove(username, comment);
     }
 
     render() {
-        const onRemove = this.state.onRemove;
         const dropDownMenu = (
           <div>
               <ul id={`dropdown-${this.props.data._id}`}>
@@ -85,11 +63,11 @@ class Comment extends Component {
         );
         const CommentView = (
           <div>
-              <div>
+              {/* <div>
                   <a className="username">{this.props.data.username}</a> 
-              </div>
+              </div> */}
               <div>
-                  Comment: {this.state.comment}
+                  Comment: {this.state.comment} Writer : {this.props.data.username}
                   { this.props.ownership ? dropDownMenu : undefined }
               </div>
               
