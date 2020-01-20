@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../login.css';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-
+ 
 class Authentication extends Component {
     state = {
       email:"",

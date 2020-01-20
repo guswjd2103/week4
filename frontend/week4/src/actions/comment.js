@@ -19,7 +19,7 @@ export function commentPostRequest(username, filename, content) { //content가 b
     return (dispatch) => {
         dispatch(commentPost());
 
-        return axios.post('routes/fileList/addComment', {username, filename, content})
+        return axios.post('/routes/fileList/addComment', {username, filename, content})
         .then ((response) => {
             dispatch(commentPostSuccess());
         }).catch((error) => {
@@ -47,13 +47,14 @@ export function commentPostFailure(error) {
     };
 }
 
-export function commentEditRequest(username, comment_id, title, content) {
+export function commentEditRequest(username, filename, comment) {
     return (dispatch) => {
         dispatch(commentEdit());
 
-        return axios.post('/api/comment/updatetcommentContent', {username, comment_id, title, content})
+        return axios.post('/routes/fileList/updateComment', {username, filename, comment})
         .then((response) => {
-            dispatch(commentEditSuccess(comment_id, response.data.comment));
+            console.log(response.data.comment);
+            dispatch(commentEditSuccess(filename, response.data.comment));
         }).catch((error) => {
             dispatch(commentEditFailure());
         });
@@ -66,10 +67,10 @@ export function commentEdit() {
     };
 }
 
-export function commentEditSuccess(comment_id, comment) {
+export function commentEditSuccess(filename, comment) {
     return {
         type : COMMENT_EDIT_SUCCESS,
-        comment_id,
+        filename,
         comment
     };
 }
@@ -85,9 +86,9 @@ export function commentListRequest(isInitial, listType, filename) {
         // inform memo list API is starting
         dispatch(commentList());
  
-        let url = 'routes/fileList/getComment';
+        let url = '/routes/fileList/getComment';
  
-        return axios.get(url, {filename})
+        return axios.post(url, {filename})
         .then((response) => {
             // console.log(response.data.comments);
             dispatch(commentListSuccess(response.data.comments, isInitial, listType));
@@ -119,13 +120,13 @@ export function commentListFailure() {
 }
 
 /* comment REMOVE */
-export function commentRemoveRequest(user_id, comment_id) {
+export function commentRemoveRequest(username, comment) {
     return (dispatch) => {
         dispatch(commentRemove());
  
-        return axios.post('/api/comment/deletetcommentContent', {user_id, comment_id})
+        return axios.post('/routes/fileList/deleteComment', {username, comment})
         .then((response) => {
-            dispatch(commentRemoveSuccess(comment_id));
+            dispatch(commentRemoveSuccess(comment));
         }).catch((error) => {
             dispatch(commentRemoveFailure());
         });

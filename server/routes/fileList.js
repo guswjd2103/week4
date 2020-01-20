@@ -210,8 +210,7 @@ router.get('/download/:name', function(req, res) {
 });
 
 //파일에 해당하는 댓글 보여주기
-router.get('/getComment', function(req, res) {
-    console.log(req.body);
+router.post('/getComment', function(req, res) {
 
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -351,6 +350,49 @@ router.post('/getSubjectDetail', (req, res) => {
     })
 })
 
+//파일 상세정보 보기
+router.post('/getFileDetail', (req, res) => {
+    const filename = req.body.filename;
+    
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "err" : err
+            });
+
+            return;
+        }
+        
+        var query = util.format(
+            'SELECT * FROM file_details WHERE filename = %s;',
+            mysql.escape(filename)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : "fail to connect database",
+                    "err" : err
+                });
+                return;
+
+            } else { 
+                console.log(data);
+                res.json({
+                    "code" : 0,
+                    "success"  :true,
+                    'msg' : 'successfully stored',
+                    "data" : data
+                });
+            }
+        })
+    })
+})
+
 //댓글 추가하기
 router.post('/addComment', (req, res) => {
     const username = req.body.username;
@@ -396,5 +438,119 @@ router.post('/addComment', (req, res) => {
         })
     })
 })
+
+
+//댓글 수정하기
+router.post('/updateComment', function(req, res){ 
+    var username = req.body.username;
+    var filename = req.body.filename;
+    var comment = req.body.comment;
+
+    console.log(username);
+    console.log(filename);
+    console.log(comment);
+    console.log('update');
+
+    pool.getConnection(function(err, connection) {
+      if(err) {
+        // console.log('database connection error');
+        res.send({
+          'code': 2, 
+          'msg': 'database connection error'
+  
+        });
+        return;
+      }
+
+      var query = util.format(
+        'UPDATE file_comments SET comment = %s WHERE username = %s and filename = %s;',
+        mysql.escape(comment),
+        mysql.escape(username),
+        mysql.escape(filename)
+      );
+
+      connection.query(query, function(err, data) {
+        if(err) {
+          // console.log('database connection error');
+          res.send({
+            'code': 2, 
+            'msg': 'database connection error'
+          });
+          connection.release();
+          return;
+        }
+
+        if(!(data.toString() == "")) {
+          // console.log('Update Notice Comment : successfully updated');
+          res.send({
+            'code': 0, 
+            'msg': 'Update Notice Comment : successfully updated',
+            'data' : data,
+            'comment' : comment
+          });
+        } else {
+          // console.log('Update Notice Comment : Fail to Update');
+          res.send({
+            'code': 1, 
+            'msg': 'Update Notice Comment : Fail to Update'
+          });
+        }
+        connection.release();
+      });
+    });
+  });
+
+//댓글 삭제
+router.post('/deleteComment', function(req, res){
+    var username = req.body.username;
+    var comment = req.body.comment;
+
+    console.log('delete');
+
+    pool.getConnection(function(err, connection) {
+      if(err) {
+        // console.log('database connection error');
+        res.send({
+          'code': 2, 
+          'msg': 'database connection error'
+  
+        });
+        return;
+      }
+
+      var query = util.format(
+        'DELETE FROM file_comments WHERE username = %s and comment = %s',
+        mysql.escape(username),
+        mysql.escape(comment)
+      );
+
+      connection.query(query, function(err, data) {
+        if(err) {
+          // console.log('database connection error');
+          res.send({
+            'code': 2, 
+            'msg': 'database connection error'
+          });
+          connection.release();
+          return;
+        }
+
+        if(!(data.toString() == "")) {
+          // console.log('Delete Notice Comment : successfully deleted');
+          res.send({
+            'code': 0, 
+            'msg': 'Delete Notice Comment : successfully deleted'
+          });
+        } else {
+          // console.log('Delete Notice Comment : Fail to delete');
+          res.send({
+            'code': 1, 
+            'msg': 'Delete Notice Comment : Fail to delete'
+          });
+        }
+        connection.release();
+      });
+    });
+  });
 
 module.exports = router;

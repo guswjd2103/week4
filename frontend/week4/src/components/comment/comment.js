@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { commentPostRequest, commentEditRequest, commentListRequest, commentRemoveRequest } from '../../actions/comment';
 import '../../style.css';
 import $ from 'jquery';
  
@@ -9,19 +11,24 @@ class Comment extends Component {
         editContentMode : false,
         editMode : false,
         content : this.props.data.content,
-        title : this.props.data.title
+        title : this.props.data.title,
+        comment : this.props.data.comment,
+        onRemove : false
     }
     
     toggleEditContent = () => {
         if(this.state.editContentMode) {
             let username = this.props.data.username;
-            let comment_id = this.props.data.comment_id;
-            let comment = this.state.comment;
+            let filename = this.props.data.filename;
+            let comment = this.state.content;
 
-            this.props.onEdit(username, comment_id, null, comment).then(() => {
+            console.log(comment);
+
+            this.props.onEdit(username, filename, comment).then(() => {
                 this.setState({
                     editContentMode: !this.state.editContentMode, 
-                    editMode : !this.state.editMode
+                    editMode : !this.state.editMode,
+                    comment : comment
                 })
 
             })
@@ -33,27 +40,6 @@ class Comment extends Component {
         }
     }
 
-    // toggleEditTitle= () => {
-    //     if(this.state.editTitleMode) {
-    //         let username = this.props.data.username;
-    //         let comment_id = this.props.data.comment_id;
-    //         let title = this.state.title
-
-    //         this.props.onEdit(user_id, comment_id, title, null).then(() => {
-    //             this.setState({
-    //                 editTitleMode: !this.state.editTitleMode,
-    //                 editMode : !this.state.editMode
-    //             })
-
-    //         })
-    //     } else {
-    //         this.setState({
-    //             editTitleMode : !this.state.editTitleMode,
-    //             editMode : !this.state.editMode
-    //         })
-    //     }
-    // }
-
     handleChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -61,68 +47,60 @@ class Comment extends Component {
     }
 
     handleRemove = () => {
-        let user_id = this.props.data.user_id;
-        let comment_id = this.props.data.comment_id;
-        this.props.onRemove(user_id, comment_id);
+        let username = this.props.data.username;
+        let comment = this.props.data.comment;
+
+        this.props.commentRemoveRequest(username, comment).then(() => {
+            if(this.props.removeStatus.status==="SUCCESS") {
+                console.log('hihi');
+                this.setState({
+                    comment : ''
+                })
+            }
+        })
+        // this.props.onRemove(username, comment).then(
+        //     () => {
+        //         if(this.props.editStatus.status === "SUCCESS") {
+        //             console.log('success~');
+        //         }
+        //     }
+        // );
+        // if(this.props.editStatus.status === "SUCCESS"){
+        //     console.log('success!!!');
+        //     this.setState({
+        //         onEdit : true
+        //     })
+        // }
     }
 
     render() {
+        const onRemove = this.state.onRemove;
         const dropDownMenu = (
-          <div className="option-button">
-              {/* <a className='dropdown-button'
-                   id={`dropdown-button-${this.props.data.comment_id}`}
-                   data-activates={`dropdown-${this.props.data.comment_id}`}>
-                  <i className="material-icons icon-button">more_vert</i>
-              </a> */}
-              <ul id={`dropdown-${this.props.data._id}`} className='dropdown-content'>
-                  {/* <li><a onClick = {this.toggleEditTitle}> Edit title</a></li> */}
+          <div>
+              <ul id={`dropdown-${this.props.data._id}`}>
                   <li><a onClick = {this.toggleEditContent}> Edit comment</a></li>
                   <li><a onClick = {this.handleRemove}>Remove</a></li>
               </ul>
           </div>
         );
         const CommentView = (
-          <div className="card">
-              <div className="info">
+          <div>
+              <div>
                   <a className="username">{this.props.data.username}</a> 
               </div>
-              {/* <div className="card-content">
-                  Title: {this.props.data.title}
-              </div> */}
-              <div className="card-content">
-                  Comment: {this.props.data.comment}
+              <div>
+                  Comment: {this.state.comment}
                   { this.props.ownership ? dropDownMenu : undefined }
               </div>
               
           </div>
         );
         
-        const editTitleView = (
-            <div className="write">
-                <div className="card">
-                    <div className="card-content">
-                        <input
-                            className="materialize-textarea"
-                            name = "title"
-                            type = "text"
-                            placeholder = "edit title"
-                            content = {this.state.title}
-                            onChange = {this.handleChange}>
-                        </input>
-                    </div>
-                    <div className="card-action">
-                        <a onClick={this.toggleEditTitle}>OK</a>
-                    </div>
-                </div>
-            </div>
-        )
-
         const editContentView = (
-            <div className="write">
-                <div className="card">
-                <div className="card-content">
+            <div>
+                <div>
+                <div>
                         <input
-                            className="materialize-textarea"
                             name = "content"
                             type = "text"
                             placeholder = "edit content"
@@ -130,7 +108,7 @@ class Comment extends Component {
                             onChange = {this.handleChange}>
                         </input>
                     </div>
-                    <div className="card-action">
+                    <div>
                         <a onClick={this.toggleEditContent}>OK</a>
                     </div>
                 </div>
@@ -138,13 +116,14 @@ class Comment extends Component {
         )
         
         const editView = (
-            <div className="write">
-                {this.state.editTitleMode ? editTitleView : editContentView}
+            <div>
+                {editContentView}
+                {/* {this.state.editTitleMode ? editTitleView : editContentView} */}
             </div>
         )
 
         return (
-            <div className="container memo">
+            <div>
                 { this.state.editMode ? editView : CommentView }
             </div>
         );
@@ -162,18 +141,54 @@ Comment.propTypes = {
 Comment.defaultProps = {
     data : {
         comment_id : '1',
-        date : new Date(),
-        content : 'Contents',
-        title : 'Title',
-        user_id : '0'
+        // date : new Date(),
+        // content : 'Contents',
+        // title : 'Title',
+        // user_id : '0'
+        username : '',
+        filename : '',
+        // comment_id : '',
+        comment : ''
     },
     ownership : true,
-    onEdit : (user_id, comment_id, title, content) => {
+    onEdit : (username, filename, comment) => {
         console.log('onEdit function not defined');
     },
     comment_id : -1,
-    onRemove : (user_id, comment_id) => {
+    onRemove : (username, comment) => {
         console.log('onRemove function not defined');
     }
 }
-export default Comment;
+
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn : state.authentication.status.isLoggedIn,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department,
+        postStatus : state.comment.post,
+        editStatus : state.comment.edit,
+        removeStatus : state.comment.remove,
+        commentData : state.comment.list.data,
+        listStatus : state.comment.list.status,
+        isLast : state.comment.list.isLast
+    };
+};
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        commentPostRequest: (username, title, content) => {
+            return dispatch(commentPostRequest(username, title, content));
+        }, 
+        commentEditRequest : (username,filename, comment) => {
+            return dispatch(commentEditRequest(username, filename, comment));
+        },
+        commentListRequest: (isInitial, listType, filename) => {
+            return dispatch(commentListRequest(isInitial, listType, filename));
+        },
+        commentRemoveRequest : (username, comment) => {
+            return dispatch(commentRemoveRequest(username, comment));
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

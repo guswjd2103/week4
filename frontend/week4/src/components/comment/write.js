@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import '../../style.css';
+// import '../../style.css';
 
 class Write extends Component {
     state = {
@@ -33,36 +33,37 @@ class Write extends Component {
     }
 
     render() {
+        console.log('write components');
         const writeView = (
-            <div className="container write">
-                <div className="card">
-                    <div className="card-content">
-                        <input className="materialize-textarea"
+            <div>
+                <div>
+                    <div>
+                        <input
                                 name = "filename"
                                 placeholder="Filename"
                                 type = "text"
                                 onChange = {this.handleChange}
                                 value = {this.state.filename}/>
                     </div>
-                    <div className="card-content">
-                        <input className="materialize-textarea"
+                    <div>
+                        <input
                                 name = "content"
                                 placeholder="Write down notification"
                                 type = "text"
                                 onChange = {this.handleChange}
                                 value = {this.state.content}/>
                     </div>
-                    <div className="card-action">
+                    <div>
                         <a onClick = {this.handlePost}>POST</a>
                     </div>
                 </div>
             </div>
         )
         return (
-            <div className="container auth">
-              <div className="card">
-                <div className="header blue white-text center">
-                    <div className="card-content">파일 등록하기</div>
+            <div>
+              <div>
+                <div>
+                    <div>파일 등록하기</div>
                 </div>
                 {writeView}
               </div>
