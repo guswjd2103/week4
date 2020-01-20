@@ -43,6 +43,7 @@ class File extends Component{
     render(){ 
         return(
             <div>
+                <Header></Header>
                 {Object.keys(this.state.fileList).length > 0 ? 
                     // <FileList list= {this.filterData(this.state.fileList)}/>
                     <FileList list = {this.state.fileList} />

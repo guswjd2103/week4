@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Button} from 'semantic-ui-react'; 
-import '../style.css';
+import '../header.css';
 
 class Header extends Component {
+    constructor (props) {
+        super(props);
+      }
 
-    render() {console.log("header");
-      const loginButton = (
-          <Button><Link to="/login">로그인하기</Link></Button>
-      );
-
+    render() {
       return (
-        <div className="container auth">
-            <Link className="logo" to="/">MadCamp</Link>
-            <div className="card">
-                <div className="header blue white-text center">
-                    { loginButton }
+        <div>
+            <nav class="header-navigation" id="header-navigation">
+                <div class="header-container">
+                    <div class="header-logo">MadCamp</div>
+                    <u1 class="header-navigation-links">
+                        <li class="active">Files</li>
+                        <li>Upload</li>
+                        <li>MyPage</li>
+                    </u1>
                 </div>
-                
-            </div>
+            </nav>
         </div>
       );
     }
