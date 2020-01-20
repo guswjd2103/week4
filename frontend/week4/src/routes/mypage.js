@@ -7,7 +7,9 @@ class MyPage extends Component {
 
     state = {
         uploadFileList : [],
-        downloadFileList : []
+        downloadFileList : [],
+        uploadmode : false,
+        downloadLength : ''
     }
 
     componentDidMount() {
@@ -20,8 +22,6 @@ class MyPage extends Component {
         Axios.post('/routes/fileList/getUserUploadFile', {username, method})
         .then(res => {
             const data = res.data.data;
-            console.log(res.data.data);
-            console.log(res.data.data[0]);
             data.map(item => {
                 this.setState({
                     uploadFileList : update(
@@ -32,8 +32,12 @@ class MyPage extends Component {
                                 size : item.size
                             }]
                         }
-                    )
+                    ),
                 })
+            })
+
+            this.setState({
+                uploadmode : true
             })
         })
     }
@@ -44,9 +48,6 @@ class MyPage extends Component {
         Axios.post('/routes/fileList/getUserDownloadFile', {username, method})
         .then(res => {
             const data = res.data.data;
-            console.log(data);
-            console.log(res.data.data[0]);
-
             data.mp(item => {
                 this.setState({
                     downloadFileList : update(
@@ -64,11 +65,30 @@ class MyPage extends Component {
     }
 
     render() {
-        console.log(this.state.uploadFileList);
 
         return (
             <div>
-                
+                <div>
+                    {this.state.uploadmode ? 
+                        <div>
+                            <div>Upload File List </div>
+                            <br></br><br></br>
+                            {this.state.uploadFileList.map((file,index)=>(
+                            
+                                <div key={index}><span><i></i>
+                                <span>{file.filename}&nbsp;&nbsp;</span>
+                                
+                                <i></i><span>{file.type}&nbsp;&nbsp;</span>
+                                <i></i><span>{file.size}</span>
+                                    </span></div>
+                                    
+                            ))}
+                        </div>
+                        : null
+                    }
+                    
+                    
+                </div>
             </div>
         )
     }
