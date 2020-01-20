@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../login.css';
 import $ from 'jquery';
 import { connect } from 'react-redux';
+import '../../spinner.scss'
  
 class Authentication extends Component {
     state = {
@@ -12,7 +13,19 @@ class Authentication extends Component {
       name : "",
       mode : true
     }
-   
+
+    handleSpinner=()=>{
+        this.preventDefault();
+        this.stopPropagation();
+        $(this).toggleClass('expanded');
+        $('#'+$(this.target).attr('for')).prop('checked',true);
+    }
+
+    // $(document).click(function() {
+    // $('.dropdown-el').removeClass('expanded');
+    // });
+
+
     handleRight = () => {
         $("#left").removeClass("left_hover");
         $(".login-s2class").css({ color: "#EE9BA3" });
@@ -148,14 +161,15 @@ class Authentication extends Component {
                     value={this.state.name}
                     onKeyPress={this.handleKeyPress}
                     placeholder="name*"/>
-                    <input
+                    <span class="dropdown-el" onClick={this.handleSpinner}></span>
+                    {/* <input
                     name="department"
                     type="text"
                     className="login-username"
                     onChange={this.handleChange}
                     value={this.state.department}
                     onKeyPress={this.handleKeyPress}
-                    placeholder="department*"/>
+                    placeholder="department*"/> */}
                 </form>
             </div>
         );
