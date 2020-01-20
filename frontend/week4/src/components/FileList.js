@@ -38,6 +38,7 @@ class FileList extends Component {
     }
 
     render() {
+        console.log('file list!!!!!');
         return(
             <div>
                 {Object.keys(this.state.fileList).length == this.state.length ? 
