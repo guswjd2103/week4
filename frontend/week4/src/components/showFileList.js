@@ -22,34 +22,23 @@ class ShowFileList extends Component {
     
     render() {
         return (
-            <div>
-                <div>
+            <div class='file-container'>
+                <div class='sidebar'>
                     {this.props.list.map((file,index)=>(
                         <ul>
                             <li key={index}>
-                                {/* <Link to= {{
-                                    pathname : "/fileList",
-                                    state : {
-                                        subject : file.subject
-                                    }
-                                }} className="link_file">  */}
-                                    <div className="info_file">
-                                        <strong className="tit_file">
-                                            <a onClick = {() => this.handleOnClick(file.subject)}>{file.subject} - {file.professor}</a>
-                                        </strong>
-                                        
-                                    </div>
-                                {/* </Link> */}
+                                <div class='navigation-elm'><span class='nav-text'><i class="fa fa-fw fa-area-chart"></i>
+                                <span class='text-short' onClick={()=>this.handleOnClick(file.subject)}>{file.subject}</span>
+                                <span class='text-long'>{file.professor}</span>
+                                    </span></div>
                             </li>
                         </ul>
                     ))}
                 </div>
-            <div>
-                {this.state.subject ? <FileList subject = {this.state.subject}/> : null}
-                
             </div>
-            </div>
-            
+            // <div>
+            //     {this.state.subject ? <FileList subject = {this.state.subject}/> : null}
+            // </div>
         )
     }
 }
