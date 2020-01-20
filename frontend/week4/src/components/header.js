@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {Button} from 'semantic-ui-react'; 
 import {Upload, File, MyPage} from '../routes';
 import '../header.css';
+import $ from 'jquery';
 
 class Header extends Component {
     state = {
@@ -17,6 +18,9 @@ class Header extends Component {
         fileonClick : false,
         mypageonClick : false
       })
+      $("#upload").addClass("active")
+      $("#file").removeClass("active")
+      $("#mypage").removeClass("active")
     }
 
     handleFileClick = () => {
@@ -25,6 +29,9 @@ class Header extends Component {
         fileonClick : true,
         mypageonClick : false
       })
+      $("#upload").removeClass("active")
+      $("#file").addClass("active")
+      $("#mypage").removeClass("active")
     }
 
     handleMyPageClick = () => {
@@ -33,6 +40,9 @@ class Header extends Component {
         fileonClick : false,
         mypageonClick : true
       })
+      $("#upload").removeClass("active")
+      $("#file").removeClass("active")
+      $("#mypage").addClass("active")
     }
 
     render() {
@@ -43,9 +53,9 @@ class Header extends Component {
                   <div class="header-container">
                       <div class="header-logo">MadCamp</div>
                       <u1 class="header-navigation-links">
-                          <li class="active"><a onClick = {this.handleFileClick}>Files</a></li>
-                          <li><a onClick = {this.handleUploadClick}>Upload</a></li>
-                          <li><a onClick = {this.handleMyPageClick}>MyPage</a></li>
+                          <li class="active" id="file"><a onClick = {this.handleFileClick}>Files</a></li>
+                          <li id="upload"><a onClick = {this.handleUploadClick}>Upload</a></li>
+                          <li id="mypage"><a onClick = {this.handleMyPageClick}>MyPage</a></li>
                       </u1>
                   </div>
               </nav>

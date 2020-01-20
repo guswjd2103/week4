@@ -10,6 +10,11 @@ class MyPage extends Component {
         downloadFileList : []
     }
 
+    componentDidMount() {
+        this.getUserUploadFile(this.props.name);
+        // this.getUserDownloadFile(this.props.name);
+    }
+
     getUserUploadFile(username) {
         const method = "upload";
         Axios.post('/routes/fileList/getUserUploadFile', {username, method})
@@ -59,6 +64,8 @@ class MyPage extends Component {
     }
 
     render() {
+        console.log(this.state.uploadFileList);
+
         return (
             <div>
                 

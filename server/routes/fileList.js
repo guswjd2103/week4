@@ -121,7 +121,7 @@ router.get('/fileList', function(req, res) {
 })
 
 //서버에 있는 유저의 업로드 파일 리스트 보여주기
-router.get('/getUserUploadFile', function(req, res) {
+router.post('/getUserUploadFile', function(req, res) {
     const username = req.body.username;
     const method = req.body.method;
 
@@ -165,7 +165,7 @@ router.get('/getUserUploadFile', function(req, res) {
 })
 
 //서버에 있는 유저의 다운로드 파일 리스트 보여주기
-router.get('/getUserUploadFile', function(req, res) {
+router.post('/getUserUploadFile', function(req, res) {
     const username = req.body.username;
     const method = req.body.method;
 

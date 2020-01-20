@@ -13,9 +13,6 @@ html,
 }
 
 .file-container {/**/
-  background: #333339;
-  color: #eee;
-  border: 15px solid #ffffff;
   border-top: 0px;
   height: 400px;
   padding: 25px;
@@ -81,7 +78,7 @@ html,
 }
 
 .sidebar {/**/
-  padding-top: 10%;
+  padding-top:0%;
   height: 100%;
   left: 0;
   width: 300px;
@@ -96,7 +93,6 @@ html,
 .file-container {/**/
   overflow-X: hidden;
   float: left;
-  background: #ffffff;
   padding-left: 300px;
   box-sizing: border-box;
   width: 100%;
