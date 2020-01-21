@@ -94,11 +94,14 @@ class MyPage extends Component {
                     <div class="card__body">
                         <h4>My Download</h4>
                     </div>
-                    <div class="card__footer">
+                    
                         {this.state.downloadFileList.map((file,index)=>(
-                            <i class="material icons" key={index}>{file.filename}</i>
+                                <div class="card__footer">
+
+                                    <i class="material icons" key={index}>{file.filename}</i>
+                                </div>
                         ))}
-                    </div>
+                    <br></br>
                 </div>
 
                 <div>  
@@ -110,12 +113,16 @@ class MyPage extends Component {
                             <div class="card__body">
                                 <h4>My Upload</h4>
                             </div>
-                            <div class="card__footer">
+                            
                                 {this.state.uploadFileList.map((file,index)=>(
-                                    <i class="material icons" key={index}>{file.filename}</i>
+                                    <div class="card__footer">
+
+                                            <p class="material icons" key={index}>{file.filename}<br/></p>
+                                    </div>
                                 ))}
+                               
                             </div>
-                        </div>
+                            
                         : null
                     }
                 </div>

@@ -26,6 +26,7 @@ class Comment extends Component {
                 })
 
             })
+            // this.forceUpdate();
         } else {
             this.setState({
                 editContentMode : !this.state.editContentMode,
@@ -45,6 +46,7 @@ class Comment extends Component {
         let comment = this.props.data.comment;
 
         this.props.onRemove(username, comment);
+        // this.forceUpdate();
     }
 
     render() {

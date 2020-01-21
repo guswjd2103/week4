@@ -34,10 +34,10 @@ CREATE TABLE file_comments (
 ) ENGINE = INNODB;
 
 -- 서버에 저장된 학과 별 과목리스트
-CREATE TABLE subject_department (
-    department VARCHAR(225) NOT NULL DEFAULT '',
-    subject VARCHAR(225) NOT NULL PRIMARY KEY DEFAULT ''
-) ENGINE = INNODB;
+-- CREATE TABLE subject_department (
+--     department VARCHAR(225) NOT NULL DEFAULT '',
+--     subject VARCHAR(225) NOT NULL PRIMARY KEY DEFAULT ''
+-- ) ENGINE = INNODB;
 
 -- 과목 상세정보
 CREATE TABLE subject_details (
@@ -46,12 +46,12 @@ CREATE TABLE subject_details (
     department VARCHAR(225) NOT NULL DEFAULT ''
 ) ENGINE = INNODB;
 
--- 과목에 대한 서버의 파일리스트
-CREATE TABLE subject_files (
-    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    filename VARCHAR(225) NOT NULL DEFAULT '',
-    subject VARCHAR(225) NOT NULL DEFAULT ''
-) ENGINE = INNODB;
+-- -- 과목에 대한 서버의 파일리스트
+-- CREATE TABLE subject_files (
+--     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--     filename VARCHAR(225) NOT NULL DEFAULT '',
+--     subject VARCHAR(225) NOT NULL DEFAULT ''
+-- ) ENGINE = INNODB;
 
 -- 파일 상세정보
 CREATE TABLE file_details (

@@ -4,13 +4,9 @@ import update from 'react-addons-update';
 import { ShowSubjectFileList } from '../components';
 
 class FileList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fileList : [], 
-            subejct : this.props.subejct
-        }
+    state = {
+        fileList : [], 
+        subejct : this.props.subejct
     }
 
     componentDidMount() {
@@ -23,15 +19,26 @@ class FileList extends Component {
                 subject : nextProps.subejct,
                 fileList : []
             })
-
             this.getFileList();
         }
+        
     }
+
     shouldComponentUpdate() {
         return true;
     }
+    // componentDidUpdate(props) {
+    //     if(this.props.subject !== props.subejct) {
+    //         this.setState({
+    //             subject : props.subejct,
+    //             fileList : []
+    //         })
+    //         this.getFileList();
+    //     }
+    // }
 
     getFileList() {
+        this.state.fileList = [];
         const subject = this.props.subject;
         console.log(subject);
         return Axios.post('/routes/fileList/getfileSubject', {subject}) //과목에 해당하는 파일 리스트
@@ -52,11 +59,10 @@ class FileList extends Component {
             })
             
         })
+        
     }
 
     render() {
-        console.log(this.props.subejct);
-        console.log(this.state.fileList);
         return (
             <div>
                 <ShowSubjectFileList list = {this.state.fileList}/>
