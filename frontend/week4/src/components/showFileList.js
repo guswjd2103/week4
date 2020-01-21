@@ -11,7 +11,8 @@ class ShowFileList extends Component {
     constructor () {
         super();
         this.state = {
-            subject : ''
+            subject : '',
+            mode : false
         };
     }
     
@@ -19,7 +20,8 @@ class ShowFileList extends Component {
     handleOnClick(subject) {   
         console.log(subject);
         this.setState({
-            subject : subject
+            subject : subject,
+            mode : true
         })
     }
 
@@ -38,7 +40,7 @@ class ShowFileList extends Component {
                 </div>
 
                 <div>
-                    {this.state.subject ? <FileList subject = {this.state.subject}/> : null}
+                    {this.state.mode ? <FileList subject = {this.state.subject}/> : null}
                 </div>
             </div>
             

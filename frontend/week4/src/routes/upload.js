@@ -13,7 +13,8 @@ class Upload extends Component{
         this.state={
             selectedFile:null,
             illustration:"",
-            subject:"data Structure" //default
+            subject:"data Structure" ,//default,
+            price : ''
         }
     }
 
@@ -28,6 +29,7 @@ class Upload extends Component{
         // const apiUrl='dummy/file_list.json';
         const apiUrl='/routes/fileList/uploadFile';
         const formData = new FormData();
+
         formData.append('file', this.state.selectedFile);
         formData.append('username', this.props.name);
         formData.append('illustration', this.state.illustration);
@@ -35,13 +37,18 @@ class Upload extends Component{
         // const username = this.props.name;
         axios.post(apiUrl, formData)
         .then(res => {
-            alert('success');
-        }).catch (err => alert('실패')) 
-
-
-        axios.post('/routes/fileList/uploadFileInfo', formData)
-        .then(res => alert('success'))
-        .catch(err => alert('fail'))
+            if(res) {
+                this.setState({
+                    selectedFile : null,
+                    illustration : "",
+                    subject : 'data Structure',
+                    price : ''
+                })
+                alert('success');
+            } else {
+                alert('fail');
+            }
+        });
     }
 
     handleChange = (e) => {
@@ -72,8 +79,11 @@ class Upload extends Component{
             //버튼에 선택된 항목 텍스트 넣기
             // $('#spinner').text($(this).text());
             // //선택된 항목 value 얻기
-            this.state.subject=($(this).attr('value'));
-            });
+            console.log($(this).attr('value'));
+            this.setState({
+                subject : ($(this).attr('value'))
+            })
+        });
 
         $('#chooseFile').bind('change', function () {
             var filename = $("#chooseFile").val();
