@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-// import '../../style.css';
+import { connect } from 'react-redux';
+import { getStatusRequest } from '../../actions/authentication';
 
 class Write extends Component {
-    state = {
-        username : '',
-        filename: '',
-        content: ''
+    constructor(props){
+        super(props);
+
+        this.state = {
+            username : this.props.name,
+            filename: this.props.filename,
+            content: ''
+        }
     }
+
     handleChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -27,24 +33,18 @@ class Write extends Component {
                         filename : "",
                         content : ""
                     });
+                    alert('success');
+                } else {
+                    alert('fail');
                 }
             }
         );
     }
 
     render() {
-        console.log('write components');
         const writeView = (
             <div>
                 <div>
-                    <div>
-                        <input
-                                name = "filename"
-                                placeholder="Title"
-                                type = "text"
-                                onChange = {this.handleChange}
-                                value = {this.state.filename}/>
-                    </div>
                     <div>
                         <input
                                 name = "content"
@@ -82,5 +82,26 @@ Write.defaultProps = {
     }
 }
 
-export default Write;
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn : state.authentication.status.isLoggedIn,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department,
+        postStatus : state.comment.post,
+        editStatus : state.comment.edit,
+        removeStatus : state.comment.remove,
+        commentData : state.comment.list.data,
+        listStatus : state.comment.list.status,
+        isLast : state.comment.list.isLast
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getStatusRequest: () => {
+            return dispatch(getStatusRequest());
+        }
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Write);
 

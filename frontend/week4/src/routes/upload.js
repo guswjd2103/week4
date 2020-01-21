@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Upload extends Component{
     constructor(props){
@@ -23,10 +24,11 @@ class Upload extends Component{
         const apiUrl='/routes/fileList/uploadFile';
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
-
+        formData.append('username', this.props.name);
+        // const username = this.props.name;
         axios.post(apiUrl, formData)
         .then(res => {
-            // alert('success');
+            alert('success');
         }).catch (err => alert('실패')) 
     }
 
@@ -45,4 +47,18 @@ class Upload extends Component{
     }
 }
 
-export default Upload;
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn : state.authentication.status.isLoggedIn,
+        name : state.authentication.status.name,
+        department : state.authentication.status.department,
+        postStatus : state.comment.post,
+        editStatus : state.comment.edit,
+        removeStatus : state.comment.remove,
+        commentData : state.comment.list.data,
+        listStatus : state.comment.list.status,
+        isLast : state.comment.list.isLast
+    };
+};
+
+export default connect(mapStateToProps, null)(Upload);

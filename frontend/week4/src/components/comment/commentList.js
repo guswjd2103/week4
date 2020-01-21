@@ -9,7 +9,7 @@ class CommentList extends Component {
         return data.map((comment, i) => {
           return(
             <Comment data = {comment}
-                    // key = {comment.comment_id}
+                    key = {comment.comment_id}
                     ownership = {true}
                     index = {i}
                     onEdit = {this.props.onEdit}
@@ -36,7 +36,7 @@ CommentList.propTypes = {
  
 CommentList.defaultProps = {
     data: [],
-    onEdit: (username, filename, comment) => {
+    onEdit: (username, filename, comment, comment_id) => {
         console.error('edit function not defined');
  
     },

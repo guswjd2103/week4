@@ -5,3 +5,4 @@ export {default as File} from './file';
 export {default as Upload} from './upload';
 export {default as FileList} from './fileList';
 export {default as MyPage} from './mypage';
+export {default as App2} from './App';
