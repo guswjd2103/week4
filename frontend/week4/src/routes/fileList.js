@@ -3,7 +3,6 @@ import Axios from 'axios';
 import update from 'react-addons-update';
 import { ShowSubjectFileList } from '../components';
 
-console.log('fileList');
 class FileList extends Component {
 
     state = {
@@ -27,7 +26,8 @@ class FileList extends Component {
                         this.state.fileList, {
                             $push : [{
                                 filename : item.filename,
-                                subject : item.subject
+                                subject : item.subject,
+                                username : item.username
                             }]
                         })
                 })

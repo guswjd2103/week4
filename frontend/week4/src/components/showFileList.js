@@ -4,6 +4,7 @@ import FileList from '../routes/fileList';
 import {Button} from 'semantic-ui-react';
 import '../file.css';
 import $ from 'jquery';
+import '../file.scss'
 
 class ShowFileList extends Component {
 
@@ -37,6 +38,21 @@ class ShowFileList extends Component {
                         ))}
                     </div>
                 </div>
+                
+                <div class="card">
+                    <div class="card__header">
+                    <div id="lineB-ChartExample"></div>
+                    </div>
+                    <div class="card__body">
+                    <h4>Daily Sales</h4>
+                    <p>Lorem ipsum dolor sit.</p>
+                    </div>
+                    <div class="card__footer">
+                    <i class="material-icons">update</i><a href="">Updated 4mins ago</a>
+                    </div>
+                </div>
+
+
                 <div>
                     {this.state.subject ? <FileList subject = {this.state.subject}/> : null}
                 </div>

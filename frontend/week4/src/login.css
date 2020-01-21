@@ -123,6 +123,19 @@ body {
    color: #748194;
    font-size: 14px;
 }
+.upload-username{
+   font-weight: bold;
+   width: 1610px;
+   margin: 20px 0;
+   height: 35px;
+   padding: 6px 15px;
+   border-radius: 5px;
+   outline: none;
+   border: none;
+   background: #F6F7F9;
+   color: #748194;
+   font-size: 14px;
+}
 .btn1{
    font-weight: bold;
    width: 230px;
@@ -132,7 +145,7 @@ body {
    border-radius: 5px;
    outline: none;
    border: none;
-   background: #EE9BA3;
+   background: #53adcb;
    color: white;
    font-size: 14px;
 }
@@ -145,10 +158,22 @@ body {
     border-radius: 5px;
     outline: none;
     border: none;
-    background: #EE9BA3;
+    background: #53adcb;
     color: white;
     font-size: 14px;
  }
+ .btn3{
+   font-weight: bold;
+   margin: 0 700px;
+   height: 45px;
+   padding: 15px 70px;
+   border-radius: 5px;
+   outline: none;
+   border: none;
+   background: #53adcb;
+   color: white;
+   font-size: 14px;
+}
 .signup1{
    color:#748194;
    font-size:30px;

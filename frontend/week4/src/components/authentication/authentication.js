@@ -11,20 +11,8 @@ class Authentication extends Component {
       email:"",
       password:"",
       name : "",
-      mode : true
-    }
-
-    handleSpinner=()=>{
-        $("#spinner").click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).toggleClass('expanded');
-            $('#'+$(e.target).attr('for')).prop('checked',true);
-          });
-          $(document).click(function() {
-            $('.dropdown-el').removeClass('expanded');
-            console.log($(this).attr('value'));
-          });
+      mode : true,
+      btn2 : true
     }
 
     handleRight = () => {
@@ -73,7 +61,7 @@ class Authentication extends Component {
                         email: '',
                         password: '',
                         name : '',
-                        department : ''
+                        department : 'school of computing' //default
                     });
                 }
             }
@@ -103,6 +91,18 @@ class Authentication extends Component {
                 this.handleRegister();
             }
         }
+    }
+
+    handleSpinner=()=>{
+         $("#spinner").click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).toggleClass('expanded');
+            $('#'+$(e.target).attr('for')).prop('checked',true);
+            });
+            $(document).click(function() {
+            $('.dropdown-el').removeClass('expanded');
+            });
     }
  
     render() {
@@ -172,21 +172,20 @@ class Authentication extends Component {
                         <input type="radio" name="sortType" value="electrical engineering" id="sort-brand"/><label for="sort-brand">electrical engineering</label>
                         <input type="radio" name="sortType" value="industrial engineering" id="sort-name"/><label for="sort-name">industrial engineering</label>
                     </span>
-                    {/* <input
-                    name="department"
-                    type="text"
-                    className="login-username"
-                    onChange={this.handleChange}
-                    value={this.state.department}
-                    onKeyPress={this.handleKeyPress}
-                    placeholder="department*"/> */}
-                    <div><a class="btn2"
-                    onClick={this.handleRegister}>Sign Up</a>
+                    <div>{this.btn2?null:<a class="btn2" id="btn2"
+                    onClick={this.handleRegister}>Sign Up</a>}
                     </div>
                 </form>
             </div>
         );
- 
+
+        $('#spinner input > label').on('click',function() {
+            //버튼에 선택된 항목 텍스트 넣기
+            // $('#spinner').text($(this).text());
+            // //선택된 항목 value 얻기
+            this.state.department=($(this).attr('value'));
+            });
+
         const loginView = ( 
             <div class="login-c2">
                 {inputBoxes}
@@ -215,7 +214,6 @@ class Authentication extends Component {
                     <div id="right" onClick = {this.handleRight}> <h1 class="login-s2class"><span>SIGN</span><span class="su">UP</span></h1></div>    
             </div>
                 {this.state.mode ? loginView : registerView }
-
         </div>
         );  
     }

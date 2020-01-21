@@ -37,7 +37,6 @@ class File extends Component{
     render(){ 
         return(
             <div>
-                
                 {Object.keys(this.state.fileList).length > 0 ? 
                     <FileList list = {this.state.fileList} />
                 :(

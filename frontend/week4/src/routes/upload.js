@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import '../upload.scss';
+import '../upload.css';
+import $ from 'jquery';
+import '../login.css'
 
 class Upload extends Component{
     constructor(props){
         super(props);
 
         this.state={
-            selectedFile:null
+            selectedFile:null,
+            illustration:"",
+            subject:"data Structure" //default
         }
     }
 
     onChangeHandler=event=>{
-        console.log(event.target.files[0]);
         this.setState({
             selectedFile:event.target.files[0],
             loaded:0
@@ -30,15 +35,93 @@ class Upload extends Component{
         }).catch (err => alert('실패')) 
     }
 
+    handleChange = (e) => {
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
+    }
+
+    handleSpinner=()=>{
+        $("#spinner").click(function(e) {
+           e.preventDefault();
+           e.stopPropagation();
+           $(this).toggleClass('expanded');
+           $('#'+$(e.target).attr('for')).prop('checked',true);
+           $(".btn2").css({color:"#ffffff"})
+           });
+           $(document).click(function() {
+           $('.dropdown-el').removeClass('expanded');
+           });
+   }
+
     render(){
+        $(document).ready(function() {
+            $(".login-container").fadeIn(0);
+         });
+
+         $('#spinner input > label').on('click',function() {
+            //버튼에 선택된 항목 텍스트 넣기
+            // $('#spinner').text($(this).text());
+            // //선택된 항목 value 얻기
+            this.state.subject=($(this).attr('value'));
+            });
+
+        $('#chooseFile').bind('change', function () {
+            var filename = $("#chooseFile").val();
+            if (/^\s*$/.test(filename)) {
+              $(".file-upload").removeClass('active');
+              $("#noFile").text("No file chosen..."); 
+            }
+            else {
+              $(".file-upload").addClass('active');
+              $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+            }
+          });
+
         return(
-            <div class="container">
-                <div class="row">
-                    <div class="form-group files">
-                        <label>Upload Your File</label>
-                        <input type="file" name="file" onChange={this.onChangeHandler}></input>
+            <div class="upload-card">
+                <div class="card__header">
+                    <div id="lineB-ChartExample"></div>
+                </div>
+                <div class="card__body">
+                    <form class="signup">
+                    <h1 class="signup1">UPLOAD MY STUDY</h1>
+                    <br></br><br></br>
+                    <div class="file-upload">
+                        <div class="file-select">
+                            <div class="file-select-button" id="filename">Choose File</div>
+                            <div class="file-select-name" id="noFile">No File Chosen</div>
+                            <input type="file" name="chooseFile" id="chooseFile" onChange={this.onChangeHandler}></input>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+                    <input
+                    name="password"
+                    type="text"
+                    className="upload-username"
+                    onChange={this.handleChange}
+                    value={this.state.subject}
+                    onKeyPress={this.handleKeyPress}
+                    placeholder="illustration*"/>
+                    <input
+                    name="name"
+                    type="text"
+                    className="upload-username"
+                    placeholder="price*"/>
+                    <span 
+                    class="upload-dropdown-el" 
+                    id="spinner"
+                    onClick={this.handleSpinner}>
+                        <input type="radio" name="sortType" value="data Structure " checked="checked" id="sort-relevance"/><label for="sort-relevance">data Structure 오혜연 교수님</label>
+                        <input type="radio" name="sortType" value="Introduction of Algorithm" id="sort-high"/><label for="sort-high">Introduction of Algorithm 최성희 교수님</label>
+                        <input type="radio" name="sortType" value="System Programming" id="sort-brand"/><label for="sort-brand">System Programming 허재혁 교수님</label>
+                        <input type="radio" name="sortType" value="Programming Language" id="sort-name"/><label for="sort-name">Programming Language 류석영 교수님</label>
+                    </span>
+                    <br></br><br></br>
+                    <a class="btn3"
+                    onClick={this.onClickHandler}>Update Files</a>
+                     <br></br><br></br>
+                     <br></br><br></br>
+                </form>
                 </div>
             </div>
         )
