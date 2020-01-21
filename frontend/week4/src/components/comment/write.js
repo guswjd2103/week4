@@ -43,30 +43,28 @@ class Write extends Component {
 
     render() {
         const writeView = (
-            <div>
-                <div>
-                    <div>
-                        <input
-                                name = "content"
-                                placeholder="Write down Comment"
-                                type = "text"
-                                onChange = {this.handleChange}
-                                value = {this.state.content}/>
-                    </div>
-                    <div>
-                        <a onClick = {this.handlePost}>POST</a>
-                    </div>
+            <div classs="card">
+                <div class="card__header">
+                    <div id="lineB-ChartExample"></div>
+                </div>
+                <div class="card__body">
+                    <h4><input
+                        name = "content"
+                        placeholder="Add your comment*"
+                        type = "text"
+                        onChange = {this.handleChange}
+                        value = {this.state.content}/>
+                    </h4>
+                </div>
+                <div class="card__footer">
+                    <i class="material-icons" onClick={this.handlePost}>Post</i>
                 </div>
             </div>
         )
+        
         return (
             <div>
-              <div>
-                <div>
-                    <div>댓글 등록하기</div>
-                </div>
                 {writeView}
-              </div>
             </div>
         )
     }

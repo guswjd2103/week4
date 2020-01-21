@@ -104,7 +104,7 @@ class Upload extends Component{
                 </div>
                 <div class="card__body">
                     <form class="signup">
-                    <h1 class="signup1">UPLOAD MY STUDY</h1>
+                    <h1 class="signup1">UPLOAD MY STUDY></h1>
                     <br></br><br></br>
 
                     <div class="file-upload">

@@ -60,13 +60,18 @@ class Comment extends Component {
         );
 
         const CommentView = (
-          <div>
-              <div>
-                  Comment: {this.props.data.comment} Writer : {this.props.data.username}
-                  { this.props.ownership ? dropDownMenu : undefined }
-              </div>
-              
-          </div>
+            <div classs="card">
+                <div class="card__header">
+                    <div id="lineB-ChartExample"></div>
+                </div>
+                <div class="card__body">
+                    <h4>Comment: {this.props.data.comment}</h4>
+                    <p>Writer : {this.props.data.username}</p>
+                </div>
+                <div class="card__footer">
+                    <i class="material-icons"> { this.props.ownership ? dropDownMenu : undefined }</i>
+                </div>
+            </div>
         );
         
         const editContentView = (

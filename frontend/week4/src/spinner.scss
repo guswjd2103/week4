@@ -3,10 +3,10 @@ $timing:.3s;
 
 .dropdown-el {
   margin-left: 2.5em;
-  min-width: 13em;
+  min-width: 11em;
   position: relative;
   display: inline-block;
-  margin-right: 1em;
+  margin-right: 2em;
   min-height: 2em;
   max-height:2em;
   overflow:hidden;
@@ -38,7 +38,7 @@ $timing:.3s;
     height: 2em;
     line-height: 2em;
     padding-left: 1em;
-    padding-right: 4.5em;
+    padding-right: 3em;
     cursor: pointer;
     position: relative;
     transition: $timing color ease-in-out;  
@@ -95,7 +95,8 @@ $timing:.3s;
 }
 
 .upload-dropdown-el {
-  margin-left: 46em;
+  margin-top: 2.5em;
+  margin-left: 39em;
   min-width: 13em;
   position: relative;
   display: inline-block;
