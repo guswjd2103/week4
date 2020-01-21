@@ -1,0 +1,1 @@
+{"code":3,"success":false,"msg":"fail to connect database","err":{"code":"ER_BAD_NULL_ERROR","errno":1048,"sqlMessage":"Column 'filename' cannot be null","sqlState":"23000","index":0,"sql":"INSERT INTO user_file (username, filename, type, size, method) VALUES ('ddiddu', NULL, 'jpg', 1000, 'download');"}}

@@ -33,9 +33,6 @@ class FileView extends Component {
         return(
            
                 <div class="evnt-dsbrd-card">
-                <div class="article-thumb-img">
-                    <img width = "240px" height = "270px" src="/myfile.png"/>
-                </div>
             <h3 class="article-thumb-heading">{filename}</h3>
             <div class="evnt-dsbrd-objctv-dscp">
                 <span class="objctv-dscp-heading">Subject</span>
@@ -53,6 +50,12 @@ class FileView extends Component {
                 <span class="objctv-dscp-heading">Illustration</span>
                 <span class="objctv-dscp-data">
                 <p>{illustration}</p>
+                </span>
+            </div>
+            <div class="evnt-dsbrd-objctv-dscp">
+                <span class="objctv-dscp-heading">Price</span>
+                <span class="objctv-dscp-data">
+                <p>10,000</p>
                 </span>
             </div>
                 <a href="#" class="aply-nw" onClick = {() => this.handleDownload(filename)}>Download</a>

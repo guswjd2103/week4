@@ -136,6 +136,17 @@ body {
    color: #34495e;
    font-size: 16px;
 }
+.comment-username{
+   font-weight: bold;
+   width: 1000px;
+   height: 35px;
+   border-radius: 5px;
+   outline: none;
+   border: none;
+   background: #fff;
+   color: #34495e;
+   font-size: 16px;
+}
 .btn1{
    font-weight: bold;
    width: 230px;
@@ -166,7 +177,7 @@ body {
    font-weight: bold;
    margin: 0 700px;
    height: 45px;
-   padding: 15px 70px;
+   padding: 15px 65px;
    border-radius: 5px;
    outline: none;
    border: none;

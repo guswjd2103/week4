@@ -57,7 +57,8 @@ class Write extends Component {
                         placeholder="Add your comment*"
                         type = "text"
                         onChange = {this.handleChange}
-                        value = {this.state.content}/>
+                        value = {this.state.content}
+                        class="comment-username"/>
                     </h4>
                 </div>
                 <div class="card__footer">

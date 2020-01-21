@@ -80,7 +80,7 @@ class MyPage extends Component {
                         <p class="scnd-font-color"><font color="#fff">{this.props.department}</font></p>
                     </div>
                     <u1 class="profile-options horizontal-list">
-                        <li><a class="comments" href="#40"><font color="#fff">cash<br></br>100,000</font></a></li>
+                        <li><a class="comments" href="#40"><font color="#fff">cash<br></br>100,000,000</font></a></li>
                         <li><a class="views" href="#41"><font color="#fff">upload<br></br>{this.state.uploadFileList.length}</font></a></li>
                         <li><a class="likes" href="#42"><font color="#fff">download<br></br>{this.state.downloadFileList.length}</font></a></li>
                     </u1>

@@ -1,9 +1,9 @@
 from flask import Flask, render_template, Response, request
 from werkzeug.utils import secure_filename
 import os
-from werkzeug.datastructures import ImmutableMultiDict
 import img_face
 import cv2
+from werkzeug.datastructures import ImmutableMultiDict
 
 UPLOAD_FOLDER = 'uploaded_files'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -12,20 +12,12 @@ if not os.path.exists(UPLOAD_FOLDER): os.makedirs(UPLOAD_FOLDER)
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/hi', methods = ['GET'])
+
+@app.route('/hi', methods=['GET'])
 def index():
     print("hello")
     return "hihi"
 
-
-# # multipart
-# @app.route('/uploadImage', methods=['POST'])
-# def upload_image():
-#     # print (request.files)
-#     # print(request.files.filename)
-#     # data = dict(request.files)
-#     # print(data['img'])
-#     return "hi"
 
 # Image file 받아옴
 @app.route('/uploadImage', methods=['POST'])
@@ -46,5 +38,5 @@ def upload_image():
 
 
 if __name__ == '__main__':
-    app.run(app.run(host='0.0.0.0', port = 80, debug=True))
+    app.run(app.run(host='0.0.0.0', port=80, debug=True))
     # host='127.0.0.1', port=6380, debug=True

@@ -11,7 +11,11 @@ var util = require('util');
 var storage = multer.diskStorage({
     destination : './public/uploads/',
     filename : function(req, file, cb) {
-        cb(null, Date.now() + "-" + path.extname(file.originalname));
+        console.log(req.body.filename);
+        var extention = path.extname(file.originalname);
+        var basename = path.basename(file.originalname, extention);
+        console.log(basename);
+        cb(null, basename + path.extname(file.originalname));
     }
 })
 

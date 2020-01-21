@@ -47,6 +47,7 @@
     font-weight: 400;
     max-height: 55px;
     height: 55px;
+    text-align: center;
   }
   .evnt-dsbrd-objctv-dscp {float: left; width: 100%; margin-bottom: 10px;}
   .objctv-dscp-heading {
