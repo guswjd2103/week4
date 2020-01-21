@@ -80,6 +80,52 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
     })
 });
 
+//업로드 시 파일 정보 저장
+router.post('/uploadFileInfo', function(req, res) {
+    const illustration = req.body.illustration;
+    const producer = req.body.username;
+    const subject = req.body.subject;
+    const filename = req.file.filename;
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : 'fail to connect database',
+                "err" : err
+            });
+            return;
+        }
+
+        var query = util.format(
+            'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
+            mysql.escape(producer),
+            mysql.escape(filename),
+            mysql.escape(subject),
+            mysql.escape(illustration)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : 'fail to connect database',
+                    "err" : err
+                });
+                console.log(err);
+
+                return;
+            }
+
+            res.render('index');
+        })
+    })
+
+})
+
+
 //학과에 해당하는 과목 리스트 보여주기
 router.get('/fileList', function(req, res) {
     var department = req.body.department;
@@ -227,7 +273,7 @@ router.post('/getfileSubject', function(req, res) {
         } 
         
         var query = util.format(
-            'SELECT * FROM subject_files WHERE subject = %s;',
+            'SELECT * FROM file_details WHERE subject = %s;',
             mysql.escape(subject)
         );
     
@@ -329,7 +375,7 @@ router.post('/getSubject', (req, res) => {
         }
         
         var query = util.format(
-            'SELECT subject FROM subject_department WHERE department = %s;',
+            'SELECT subject FROM subject_details WHERE department = %s;',
             mysql.escape(department)
         );
 

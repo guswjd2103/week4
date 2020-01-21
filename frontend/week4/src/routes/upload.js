@@ -25,11 +25,18 @@ class Upload extends Component{
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
         formData.append('username', this.props.name);
+        formData.append('illustration', this.state.illustration);
+        formData.append('subject', this.state.subject);
         // const username = this.props.name;
         axios.post(apiUrl, formData)
         .then(res => {
             alert('success');
         }).catch (err => alert('실패')) 
+
+
+        axios.post('/routes/fileList/uploadFileInfo', formData)
+        .then(res => alert('success'))
+        .catch(err => alert('fail'))
     }
 
     render(){
