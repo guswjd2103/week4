@@ -47,11 +47,11 @@ export function commentPostFailure(error) {
     };
 }
 
-export function commentEditRequest(username, filename, comment) {
+export function commentEditRequest(username, filename, comment, comment_id) {
     return (dispatch) => {
         dispatch(commentEdit());
 
-        return axios.post('/routes/fileList/updateComment', {username, filename, comment})
+        return axios.post('/routes/fileList/updateComment', {username, filename, comment, comment_id})
         .then((response) => {
             console.log(response.data.comment);
             dispatch(commentEditSuccess(filename, response.data.comment));

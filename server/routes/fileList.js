@@ -36,7 +36,7 @@ function checkFileType(file, cb) {
 router.post('/uploadFile', upload.single('file'), function(req, res) {
 
     console.log('file upload');
-    const username = "haha";
+    const username = req.body.username;
     const filename = req.file.filename; //file path
     const type = req.file.mimetype;
     const size = req.file.size;
@@ -79,6 +79,52 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
         })
     })
 });
+
+//업로드 시 파일 정보 저장
+router.post('/uploadFileInfo', function(req, res) {
+    const illustration = req.body.illustration;
+    const producer = req.body.username;
+    const subject = req.body.subject;
+    const filename = req.file.filename;
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : 'fail to connect database',
+                "err" : err
+            });
+            return;
+        }
+
+        var query = util.format(
+            'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
+            mysql.escape(producer),
+            mysql.escape(filename),
+            mysql.escape(subject),
+            mysql.escape(illustration)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 2,
+                    "success" : false,
+                    "msg" : 'fail to connect database',
+                    "err" : err
+                });
+                console.log(err);
+
+                return;
+            }
+
+            res.render('index');
+        })
+    })
+
+})
+
 
 //학과에 해당하는 과목 리스트 보여주기
 router.get('/fileList', function(req, res) {
@@ -227,7 +273,7 @@ router.post('/getfileSubject', function(req, res) {
         } 
         
         var query = util.format(
-            'SELECT * FROM subject_files WHERE subject = %s;',
+            'SELECT * FROM file_details WHERE subject = %s;',
             mysql.escape(subject)
         );
     
@@ -260,9 +306,11 @@ router.get('/download', function(req, res) {
 });
 
 //파일에 해당하는 댓글 보여주기
-router.get('/getComment', function(req, res) {
+router.post('/getComment', function(req, res) {
     console.log(req.body);
 
+    const filename = req.body.filename;
+    console.log(filename);
     pool.getConnection(function(err, connection) {
         if(err) {
             res.json({
@@ -275,7 +323,8 @@ router.get('/getComment', function(req, res) {
         }
 
         var query = util.format(
-            'SELECT comment FROM file_comments WHERE filename = %s;',
+            'SELECT * FROM file_comments WHERE filename = %s;',
+            mysql.escape(filename)
         );
 
         connection.query(query, function(err, data) {
@@ -326,7 +375,7 @@ router.post('/getSubject', (req, res) => {
         }
         
         var query = util.format(
-            'SELECT subject FROM subject_department WHERE department = %s;',
+            'SELECT subject FROM subject_details WHERE department = %s;',
             mysql.escape(department)
         );
 
@@ -441,9 +490,15 @@ router.post('/getFileDetail', (req, res) => {
 
 //댓글 추가하기
 router.post('/addComment', (req, res) => {
-    const username = req.body.username;
+    // const username = req.body.username;
+    const username = "ddiddu";
     const filename = req.body.filename;
     const comment = req.body.content;
+
+    console.log('add comment');
+    console.log(username);
+    console.log(filename);
+    console.log(comment);
 
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -480,6 +535,7 @@ router.post('/addComment', (req, res) => {
                     "success"  :true,
                     'msg' : 'successfully stored'
                 });
+                console.log("success");
             }
         })
     })
@@ -491,6 +547,11 @@ router.post('/updateComment', function(req, res){
     var username = req.body.username;
     var filename = req.body.filename;
     var comment = req.body.comment;
+    var comment_id = req.body.comment_id;
+
+    console.log('update comment');
+    console.log(comment_id);
+    console.log(username);
 
     pool.getConnection(function(err, connection) {
       if(err) {
@@ -504,10 +565,11 @@ router.post('/updateComment', function(req, res){
       }
 
       var query = util.format(
-        'UPDATE file_comments SET comment = %s WHERE username = %s and filename = %s;',
+        'UPDATE file_comments SET comment = %s WHERE username = %s and filename = %s and comment_id = %s;',
         mysql.escape(comment),
         mysql.escape(username),
-        mysql.escape(filename)
+        mysql.escape(filename),
+        mysql.escape(comment_id)
       );
 
       connection.query(query, function(err, data) {

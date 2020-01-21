@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { loginRequest } from '../actions/authentication';
 import Materialize from 'materialize-css';
 import $ from 'jquery';
+import { createHashHistory } from 'history';
+export const history = createHashHistory();
 
 
 class Login extends Component {

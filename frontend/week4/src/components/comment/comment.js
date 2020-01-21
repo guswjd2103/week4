@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commentPostRequest, commentEditRequest, commentListRequest, commentRemoveRequest } from '../../actions/comment';
 import '../../style.css';
-import $ from 'jquery';
  
 class Comment extends Component {
     state = {
@@ -11,8 +10,6 @@ class Comment extends Component {
         editContentMode : false,
         editMode : false,
         content : this.props.data.content,
-        title : this.props.data.title,
-        comment : this.props.data.comment,
     }
     
     toggleEditContent = () => {
@@ -20,14 +17,12 @@ class Comment extends Component {
             let username = this.props.data.username;
             let filename = this.props.data.filename;
             let comment = this.state.content;
+            let comment_id = this.props.data.comment_id;
 
-            console.log(comment);
-
-            this.props.onEdit(username, filename, comment).then(() => {
+            this.props.onEdit(username, filename, comment, comment_id).then(() => {
                 this.setState({
                     editContentMode: !this.state.editContentMode, 
                     editMode : !this.state.editMode,
-                    comment : comment
                 })
 
             })
@@ -55,19 +50,17 @@ class Comment extends Component {
     render() {
         const dropDownMenu = (
           <div>
-              <ul id={`dropdown-${this.props.data._id}`}>
+              <ul>
                   <li><a onClick = {this.toggleEditContent}> Edit comment</a></li>
                   <li><a onClick = {this.handleRemove}>Remove</a></li>
               </ul>
           </div>
         );
+
         const CommentView = (
           <div>
-              {/* <div>
-                  <a className="username">{this.props.data.username}</a> 
-              </div> */}
               <div>
-                  Comment: {this.state.comment} Writer : {this.props.data.username}
+                  Comment: {this.props.data.comment} Writer : {this.props.data.username}
                   { this.props.ownership ? dropDownMenu : undefined }
               </div>
               
@@ -95,8 +88,7 @@ class Comment extends Component {
         
         const editView = (
             <div>
-                {editContentView}
-                {/* {this.state.editTitleMode ? editTitleView : editContentView} */}
+                {this.state.editTitleMode ? null : editContentView}
             </div>
         )
 
@@ -119,13 +111,12 @@ Comment.propTypes = {
 Comment.defaultProps = {
     data : {
         comment_id : '1',
-        // date : new Date(),
-        // content : 'Contents',
-        // title : 'Title',
-        // user_id : '0'
+        date : new Date(),
+        content : 'Contents',
+        title : 'Title',
+        user_id : '0',
         username : '',
         filename : '',
-        // comment_id : '',
         comment : ''
     },
     ownership : true,
@@ -157,8 +148,8 @@ const mapDispatchToProps = (dispatch) =>{
         commentPostRequest: (username, title, content) => {
             return dispatch(commentPostRequest(username, title, content));
         }, 
-        commentEditRequest : (username,filename, comment) => {
-            return dispatch(commentEditRequest(username, filename, comment));
+        commentEditRequest : (username,filename, comment, comment_id) => {
+            return dispatch(commentEditRequest(username, filename, comment, comment_id));
         },
         commentListRequest: (isInitial, listType, filename) => {
             return dispatch(commentListRequest(isInitial, listType, filename));

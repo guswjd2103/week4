@@ -6,7 +6,8 @@ import Materialize from 'materialize-css';
 import $ from 'jquery';
 import { commentPostRequest, commentEditRequest, commentListRequest, commentRemoveRequest } from '../actions/comment';
 import axios from 'axios';
-import FileView from '../components/fileView'
+import FileView from '../components/fileView';
+import { getStatusRequest } from '../actions/authentication';
 
 class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 다운로드 버튼을 누르면 다운 될 수 있도록 해야함
     
@@ -21,17 +22,15 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
     handlePost = (username, filename, content) => {
         return this.props.commentPostRequest(username, filename, content).then(
             () => {
-                console.log(this.props.postStatus.status);
                 if(this.props.postStatus.status ==="SUCCESS") {
-                    // Materialize.toast('Success!', 2000);
                     console.log('success');
                 } 
             }
         );
     }
     
-    handleEdit = (username, filename, comment) => {
-        return this.props.commentEditRequest(username, filename, comment).then(
+    handleEdit = (username, filename, comment, comment_id) => {
+        return this.props.commentEditRequest(username, filename, comment, comment_id).then(
             () => {
                 if(this.props.editStatus.status ==="SUCCESS") {
                     Materialize.toast('Success!',2000);
@@ -85,6 +84,40 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
     }
 
     componentDidMount() {
+        // function getCookie(name) {
+        //     var value = "; " + document.cookie; 
+        //     var parts = value.split("; " + name + "="); 
+        //     if (parts.length == 2) return parts.pop().split(";").shift();
+        // }
+   
+        // // get loginData from cookie
+        // let loginData = getCookie('key');
+   
+        // // if loginData is undefined, do nothing
+        // if(typeof loginData === "undefined") return;
+   
+        // // decode base64 & parse json
+        // loginData = JSON.parse(atob(loginData));
+   
+        // // if not logged in, do nothing
+        // if(!loginData.isLoggedIn) return;
+   
+        // this.props.getStatusRequest().then(
+        //     () => {
+        //         // if session is not valid
+        //         if(!this.props.status.valid) {
+        //             // logout the session
+        //             loginData = {
+        //                 isLoggedIn: false,
+        //                 username: ''
+        //             };
+   
+        //             document.cookie='key=' + btoa(JSON.stringify(loginData));
+
+        //         }
+        //     }
+        // );
+
         this.props.commentListRequest(true, undefined, this.state.filename); 
         this._getFile();
     }
@@ -110,7 +143,7 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
     }
 
     render() {
-        const write = (<Write onPost = {this.handlePost}/>);
+        
         return (
             <div className = "wrapper">
                 {this.state.mode ?
@@ -119,7 +152,8 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
                             producer = {this.state.producer}
                             illustration = {this.state.illustration}
                             filename = {this.state.filename}/>
-                    <Write onPost = {this.handlePost}/>
+                    <Write onPost = {this.handlePost}
+                              filename  = {this.state.filename}/>
                     <CommentList data = {this.props.commentData}
                                 onEdit = {this.handleEdit}
                                 onRemove = {this.handleRemove}/>
@@ -154,15 +188,18 @@ const mapDispatchToProps = (dispatch) =>{
         commentPostRequest: (username, title, content) => {
             return dispatch(commentPostRequest(username, title, content));
         }, 
-        commentEditRequest : (username,filename, comment) => {
-            return dispatch(commentEditRequest(username, filename, comment));
+        commentEditRequest : (username,filename, comment, comment_id) => {
+            return dispatch(commentEditRequest(username, filename, comment, comment_id));
         },
         commentListRequest: (isInitial, listType, filename) => {
             return dispatch(commentListRequest(isInitial, listType, filename));
         },
         commentRemoveRequest : (username, comment) => {
             return dispatch(commentRemoveRequest(username, comment));
-        }
+        },
+        // getStatusRequest: () => {
+        //     return dispatch(getStatusRequest());
+        // }
     };
 };
 

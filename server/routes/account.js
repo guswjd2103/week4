@@ -111,6 +111,12 @@ router.post('/login', (req, res) => {
       } 
 
       if(!(data.toString() == "")) { 
+        let session = req.session;
+        session.loginInfo = {
+          username : data.username,
+          id : data.id
+        };
+        
         res.json({
           'code': 0, 
           'msg': 'findAccountWithPW: found the account',
@@ -128,6 +134,18 @@ router.post('/login', (req, res) => {
     });
   });
 });
+
+router.get('/getinfo', (req, res) => {
+  if(typeof req.session.loginInfo === "undefined") {
+      return res.status(401).json({
+          error: "THERE IS NO LOGIN DATA",
+          code: 1
+      });
+  }
+
+  res.json({ info: req.session.loginInfo });
+});
+
 
 router.post('/logout', (req, res) => {
     retrun.res.json({success : true});

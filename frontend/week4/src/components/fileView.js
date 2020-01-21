@@ -5,11 +5,22 @@ import Axios from 'axios';
 class FileView extends Component {
 
     handleDownload= (filename) => {
-        Axios.get('/routes/fileList/download/', {params : {name : filename}})
+        fetch('/routes/fileList/download/', {params : {name : filename}})
         .then(res => {
-            console.log('download success');
-            alert('success');
-        }).catch(err => alert('실패'))
+            res.blob().then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            })
+        })
+        // Axios.get('/routes/fileList/download/', {params : {name : filename}})
+        // .then(res => {
+        //     console.log('download success');
+        //     // window.open("http://localhost:8000/routes/fileList/download?" + filename);
+        //     alert('success');
+        // }).catch(err => alert('실패'))
     }
 
     render() {

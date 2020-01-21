@@ -5,6 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var favicon = require('serve-favicon');
 var routes = require('./routes');
+var session = require('express-session');
 
 var app = express();
 
@@ -15,6 +16,12 @@ app.use(express.static('./public'));
 
 app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+app.use(session({
+    secret: 'CodeLab1$1$234',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.get('/', (req, res) => res.render('index'));
 
