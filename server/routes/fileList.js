@@ -41,6 +41,8 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
     const type = req.file.mimetype;
     const size = req.file.size;
     const method = "upload";
+    const illustration = req.body.illustration;
+    const subject = req.body.subject;
 
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -75,55 +77,81 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
                 return;
             }
 
-            res.render('index');
+            var newQuery = util.format(
+                'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
+                mysql.escape(username),
+                mysql.escape(filename),
+                mysql.escape(subject),
+                mysql.escape(illustration)
+            );
+
+            connection.query(newQuery, function(err, data) {
+                if(err) {
+                    res.json({
+                        "code" : 2,
+                        "success" : false,
+                        "msg" : 'fail to connect database',
+                        "err" : err
+                    });
+                    console.log(err);
+    
+                    return;
+                }
+
+            })
+
+            res.json({
+                "success" : true
+            })
         })
     })
 });
 
 //업로드 시 파일 정보 저장
-router.post('/uploadFileInfo', function(req, res) {
-    const illustration = req.body.illustration;
-    const producer = req.body.username;
-    const subject = req.body.subject;
-    const filename = req.file.filename;
+// router.post('/uploadFileInfo', function(req, res) {
+//     console.log('upload file inof');
+//     const illustration = req.body.illustration;
+//     const producer = req.body.username;
+//     const subject = req.body.subject;
+//     const filename = req.body.filename;
 
-    pool.getConnection(function(err, connection) {
-        if(err) {
-            res.json({
-                "code" : 3,
-                "success" : false,
-                "msg" : 'fail to connect database',
-                "err" : err
-            });
-            return;
-        }
+//     pool.getConnection(function(err, connection) {
+//         if(err) {
+//             res.json({
+//                 "code" : 3,
+//                 "success" : false,
+//                 "msg" : 'fail to connect database',
+//                 "err" : err
+//             });
+//             return;
+//         }
 
-        var query = util.format(
-            'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
-            mysql.escape(producer),
-            mysql.escape(filename),
-            mysql.escape(subject),
-            mysql.escape(illustration)
-        );
+//         var query = util.format(
+//             'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
+//             mysql.escape(producer),
+//             mysql.escape(filename),
+//             mysql.escape(subject),
+//             mysql.escape(illustration)
+//         );
 
-        connection.query(query, function(err, data) {
-            if(err) {
-                res.json({
-                    "code" : 2,
-                    "success" : false,
-                    "msg" : 'fail to connect database',
-                    "err" : err
-                });
-                console.log(err);
+//         connection.query(query, function(err, data) {
+//             if(err) {
+//                 res.json({
+//                     "code" : 2,
+//                     "success" : false,
+//                     "msg" : 'fail to connect database',
+//                     "err" : err
+//                 });
+//                 console.log(err);
 
-                return;
-            }
+//                 return;
+//             }
 
-            res.render('index');
-        })
-    })
+//             res.render('index');
+//         })
+//     })
 
-})
+// })
 
 
 //학과에 해당하는 과목 리스트 보여주기
