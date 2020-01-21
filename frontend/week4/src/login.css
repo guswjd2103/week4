@@ -33,10 +33,11 @@ body {
 }
 
 .c11{
-   background-image:url('https://i.pinimg.com/736x/b8/09/22/b80922f6ea2daaf36a6627378662803b--deck-of-cards-phone-wallpapers.jpg');
-   background-size:300px 400px;
+   background-image:url('./logo.PNG');
+   background-size: 300px 300px;
    background-repeat: no-repeat;
-   background-color:white;
+   background-color: #364f6b;
+   background-position-y: center;
    width:300px;
    height:400px;
    display:inline-block;

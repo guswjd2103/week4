@@ -207,8 +207,6 @@ class Authentication extends Component {
         <div class="login-container">
             <div class="login-c1">
             <div class="c11">
-                <h1 class="mainhead">Study With Me</h1>
-                <p class="mainp">STUDY & MONEY</p>
             </div>
                     <div id="left" onClick = {this.handleLeft}><h1 class="login-s1class"><span>SIGN</span><span class="su">IN</span></h1></div>
                     <div id="right" onClick = {this.handleRight}> <h1 class="login-s2class"><span>SIGN</span><span class="su">UP</span></h1></div>    
