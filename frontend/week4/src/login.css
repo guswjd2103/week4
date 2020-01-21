@@ -59,7 +59,7 @@ body {
    border-radius:15px 15px 15px 0px;
 }
 .left_hover{
-   color:#EE9BA3;
+   color:#53adcb;
    box-shadow: 5px 0 18px -10px #333;
    z-index:1;
    position:absolute;
@@ -141,7 +141,7 @@ body {
    width: 230px;
    margin: 0 35px;
    height: 45px;
-   padding: 15px 70px;
+   padding: 15px 77px;
    border-radius: 5px;
    outline: none;
    border: none;
