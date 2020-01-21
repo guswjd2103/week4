@@ -65,7 +65,7 @@ class Write extends Component {
                 </div>
             </div>
         )
-        
+
         return (
             <div>
                 {writeView}
