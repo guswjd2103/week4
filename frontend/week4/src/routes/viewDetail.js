@@ -84,40 +84,6 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
     }
 
     componentDidMount() {
-        // function getCookie(name) {
-        //     var value = "; " + document.cookie; 
-        //     var parts = value.split("; " + name + "="); 
-        //     if (parts.length == 2) return parts.pop().split(";").shift();
-        // }
-   
-        // // get loginData from cookie
-        // let loginData = getCookie('key');
-   
-        // // if loginData is undefined, do nothing
-        // if(typeof loginData === "undefined") return;
-   
-        // // decode base64 & parse json
-        // loginData = JSON.parse(atob(loginData));
-   
-        // // if not logged in, do nothing
-        // if(!loginData.isLoggedIn) return;
-   
-        // this.props.getStatusRequest().then(
-        //     () => {
-        //         // if session is not valid
-        //         if(!this.props.status.valid) {
-        //             // logout the session
-        //             loginData = {
-        //                 isLoggedIn: false,
-        //                 username: ''
-        //             };
-   
-        //             document.cookie='key=' + btoa(JSON.stringify(loginData));
-
-        //         }
-        //     }
-        // );
-
         this.props.commentListRequest(true, undefined, this.state.filename); 
         this._getFile();
     }

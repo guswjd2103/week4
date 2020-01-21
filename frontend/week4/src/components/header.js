@@ -51,7 +51,7 @@ class Header extends Component {
           <div>
               <nav class="header-navigation" id="header-navigation">
                   <div class="header-container">
-                      <div class="header-logo">MadCamp</div>
+                      <div class="header-logo">StudyWithMe</div>
                       <u1 class="header-navigation-links">
                           <li class="active" id="file"><a onClick = {this.handleFileClick}>Files</a></li>
                           <li id="upload"><a onClick = {this.handleUploadClick}>Upload</a></li>
