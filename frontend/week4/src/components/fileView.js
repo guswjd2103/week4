@@ -31,21 +31,22 @@ class FileView extends Component {
         const filename = this.props.filename;
 
         return(
-            <div class="evnt-dsbrd-card">
+           
+                <div class="evnt-dsbrd-card">
                 <div class="article-thumb-img">
-                    <img src="./answer.PNG"/>
+                    <img width = "240px" height = "270px" src="/myfile.png"/>
                 </div>
             <h3 class="article-thumb-heading">{filename}</h3>
             <div class="evnt-dsbrd-objctv-dscp">
                 <span class="objctv-dscp-heading">Subject</span>
                 <span class="objctv-dscp-data">
-                    <ul>{subject}</ul>
+                    <p>{subject}</p>
                 </span>
             </div>
             <div class="evnt-dsbrd-objctv-dscp">
                 <span class="objctv-dscp-heading">Producer</span>
                 <span class="objctv-dscp-data">
-                    <ul>{producer}</ul>
+                    <p>{producer}</p>
                 </span>
             </div>
             <div class="evnt-dsbrd-objctv-dscp">
@@ -56,6 +57,8 @@ class FileView extends Component {
             </div>
                 <a href="#" class="aply-nw" onClick = {() => this.handleDownload(filename)}>Download</a>
             </div>
+            
+            
         )
     }
     

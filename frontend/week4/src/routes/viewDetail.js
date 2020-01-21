@@ -8,6 +8,7 @@ import { commentPostRequest, commentEditRequest, commentListRequest, commentRemo
 import axios from 'axios';
 import FileView from '../components/fileView';
 import { getStatusRequest } from '../actions/authentication';
+import '../viewDetail.css'
 
 class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 다운로드 버튼을 누르면 다운 될 수 있도록 해야함
     
@@ -114,10 +115,11 @@ class ViewDetail extends Component { //파일에 대한 댓글을 보여주고, 
             <div className = "wrapper">
                 {this.state.mode ?
                 <div>
+                    <div class="middle-container my-container">
                     <FileView subject = {this.state.subject}
                             producer = {this.state.producer}
                             illustration = {this.state.illustration}
-                            filename = {this.state.filename}/>
+                            filename = {this.state.filename}/></div>
                     <Write onPost = {this.handlePost}
                               filename  = {this.state.filename}/>
                     <CommentList data = {this.props.commentData}

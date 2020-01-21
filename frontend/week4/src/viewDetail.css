@@ -1,35 +1,7 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css);
   @import url('https://fonts.googleapis.com/css?family=Playball');
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  body {
-    padding: 5%;
-    font-family: 'Roboto', sans-serif;
-    background-image: linear-gradient(90deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
-  }
-  ul {list-style: none;}
-  a {text-decoration: none;}
-  .h3, h3 {font-size: 24px;}
-  main {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;width: 80%; }
-  main:after {
-    content: 'Salman Raza';
-    font-family: 'Playball', cursive;
-    position: absolute;
-    bottom: -90px;
-    left: 50%;
-    color: rgba(0, 0, 0, 0.017);
-    font-size: 150px;
-    line-height: 140px;
-    white-space: nowrap;
-    text-transform: lowercase;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: -1;
-  }
+  
 
   
    .evnt-dsbrd-card,
@@ -46,15 +18,15 @@
 
 /* [ 2nd card ] */
   .evnt-dsbrd-card {
-    width: 100%;
+    /* width: 100%; */
     max-width: 360px;
     height: auto;
     padding: 20px 20px 72px;
-    background-color: #fff;
+    background-color: #394264;
     position: relative;
     /*border: 1px solid #e6e6e6;*/
     border-radius: 4px;
-    margin: 0 auto 30px;
+    margin: 0 0 0;
     display:table;
   }
 
@@ -64,9 +36,10 @@
     float: left;
     overflow: hidden;
     margin-bottom: 20px;
+    margin-left : 60px;
   }
   .evnt-dsbrd-card .article-thumb-heading {
-    color: #333;
+    color: #fff;
     line-height: 26px;
     margin-bottom: 15px;
     float: left;
@@ -81,8 +54,8 @@
     width: 90px;
     float: left;
     margin-right: 10px;
-    font-size: 14px;
-    color: #e73022;
+    font-size: 16px;
+    color: #fcb150;
     letter-spacing: 0.25px;
     position: relative;
     line-height: 14px;
@@ -114,15 +87,15 @@
     width: 90px;
     float: left;
     margin-right: 10px;
-    font-size: 14px;
-    color: #e73022;
+    color: #fcb150;
+    letter-spacing: 0.25px;
     letter-spacing: 0.25px;
     position: relative;
     line-height: 14px;
     margin-top: 3px;
   }
   .objctv-dscp-data {float: left; width: 218px; display: block;}
-  .objctv-dscp-data p {font-size: 12px; line-height: 18px; margin-top: 2px; color: #6b6b6b;}
+  .objctv-dscp-data p { line-height: 18px; margin-top: 2px; color:#fff;}
   .objctv-dscp-data p a {color: #000; font-style: italic; text-decoration: underline;}
   .evnt-dsbrd-card .article-thumb-details {
     width: 100%;
@@ -153,7 +126,7 @@
     width: 245px;
     height: 250px;
     background-color: #fff;
-    border: 1px solid #e73022;
+    border: 1px solid #fcb150;
     border-radius: 3px;
     padding: 13px 15px 15px 15px;
     z-index: 1;
@@ -165,8 +138,8 @@
     width: 15px;
     height: 15px;
     background-color: #fff;
-    border-bottom: 1px solid #e73022;
-    border-right: 1px solid #e73022;
+    border-bottom: 1px solid #fcb150;
+    border-right: 1px solid #fcb150;
     bottom: -9px;
     left: 48%;
     transform: rotate(45deg);
@@ -214,7 +187,7 @@
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 2px;
-    color: #6b6b6b;
+    color: #fff;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -229,7 +202,7 @@
        left: 50%;
        transform: translate(-50%);
        padding: 2px 8px;
-       background-color: #e73022;
+       background-color: #fcb150;
        color: #fff;
        letter-spacing: 1px;
       border-radius:3px
@@ -239,16 +212,16 @@
        content: '';
        border-right: 5px solid transparent;
        border-left: 5px solid transparent;
-       border-top: 6px solid #e73022;
+       border-top: 6px solid #fcb150;
        left: 50%;
        transform: translateX(-50%);
        bottom: -6px;
    }
 
   /* [ ::hover ] */
-  .objctv-dscp-data p a:hover {color: #e73022;}
+  .objctv-dscp-data p a:hover {color: #fcb150;}
   .evnt-dsbrd-card .article-thumb-details ul li:hover .rqr-evnt-prfl-cont {display: block;}
-  .aply-nw:hover {background-color: #e73022; border-color: #e73022; color: #fff; text-decoration: none;}
+  .aply-nw:hover {background-color: #fcb150; border-color: #fcb150; color: #fff; text-decoration: none;}
   .evnt-dsbrd-card .article-thumb-details ul li:hover .rqr-evnt-views-cont {display: block;}
 .evnt-dsbrd-card:hover {box-shadow: 0 0 15px rgba(0,0,0,0.2);}
 .evnt-dsbrd-card .article-thumb-details ul li:hover a {color:#e95028;}
