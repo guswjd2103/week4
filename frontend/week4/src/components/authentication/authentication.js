@@ -17,7 +17,7 @@ class Authentication extends Component {
 
     handleRight = () => {
         $("#left").removeClass("left_hover");
-        $(".login-s2class").css({ color: "#EE9BA3" });
+        $(".login-s2class").css({ color: "#53adcb" });
         $(".login-s1class").css({ color: "#748194" });
         $("#right").addClass("right_hover");
         this.setState({
@@ -26,7 +26,7 @@ class Authentication extends Component {
     }
      
     handleLeft = () => {
-        $(".login-s1class").css({ color: "#EE9BA3" });
+        $(".login-s1class").css({ color: "#53adcb" });
         $(".login-s2class").css({ color: "#748194" });
         $("#right").removeClass("right_hover");
         $("#left").addClass("left_hover");
