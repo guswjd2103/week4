@@ -16,12 +16,12 @@ class FileView extends Component {
                 a.click();
             })
         })
-        // Axios.get('/routes/fileList/download/', {params : {name : filename}})
-        // .then(res => {
-        //     console.log('download success');
-        //     // window.open("http://localhost:8000/routes/fileList/download?" + filename);
-        //     alert('success');
-        // }).catch(err => alert('실패'))
+        Axios.get('/routes/fileList/download/', {params : {name : filename}})
+        .then(res => {
+            console.log('download success');
+            // window.open("http://localhost:8000/routes/fileList/download?" + filename);
+            // alert('success');
+        }).catch(err => alert('실패'))
     }
 
     render() {

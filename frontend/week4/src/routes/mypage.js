@@ -51,7 +51,7 @@ class MyPage extends Component {
         Axios.post('/routes/fileList/getUserDownloadFile', {username, method})
         .then(res => {
             const data = res.data.data;
-            data.mp(item => {
+            data.map(item => {
                 this.setState({
                     downloadFileList : update(
                         this.state.downloadFileList, {
@@ -98,8 +98,8 @@ class MyPage extends Component {
                         {this.state.downloadFileList.map((file,index)=>(
                                 <div class="card__footer">
 
-                                    <i class="material icons" key={index}>{file.filename}</i>
-                                </div>
+                                <p class="material icons" key={index}>{file.filename}<br/></p>
+                        </div>
                         ))}
                     <br></br>
                 </div>

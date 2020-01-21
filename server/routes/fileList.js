@@ -107,53 +107,6 @@ router.post('/uploadFile', upload.single('file'), function(req, res) {
     })
 });
 
-//업로드 시 파일 정보 저장
-// router.post('/uploadFileInfo', function(req, res) {
-//     console.log('upload file inof');
-//     const illustration = req.body.illustration;
-//     const producer = req.body.username;
-//     const subject = req.body.subject;
-//     const filename = req.body.filename;
-
-//     pool.getConnection(function(err, connection) {
-//         if(err) {
-//             res.json({
-//                 "code" : 3,
-//                 "success" : false,
-//                 "msg" : 'fail to connect database',
-//                 "err" : err
-//             });
-//             return;
-//         }
-
-//         var query = util.format(
-//             'INSERT INTO file_details (producer, filename,subject, illustration) VALUES (%s, %s, %s, %s)',
-//             mysql.escape(producer),
-//             mysql.escape(filename),
-//             mysql.escape(subject),
-//             mysql.escape(illustration)
-//         );
-
-//         connection.query(query, function(err, data) {
-//             if(err) {
-//                 res.json({
-//                     "code" : 2,
-//                     "success" : false,
-//                     "msg" : 'fail to connect database',
-//                     "err" : err
-//                 });
-//                 console.log(err);
-
-//                 return;
-//             }
-
-//             res.render('index');
-//         })
-//     })
-
-// })
-
-
 //학과에 해당하는 과목 리스트 보여주기
 router.get('/fileList', function(req, res) {
     var department = req.body.department;
@@ -239,8 +192,8 @@ router.post('/getUserUploadFile', function(req, res) {
 })
 
 //서버에 있는 유저의 다운로드 파일 리스트 보여주기
-router.post('/getUserUploadFile', function(req, res) {
-    const username = req.body.username;
+router.post('/getUserDownloadFile', function(req, res) {
+    // const username = req.body.username;
     const method = req.body.method;
 
     var path = __dirname + '/../' + 'public/uploads';
@@ -258,8 +211,7 @@ router.post('/getUserUploadFile', function(req, res) {
         } 
         fs.readFile('file.html', 'utf-8', function(error, data) {
             var query = util.format(
-                'SELECT * FROM user_file WHERE username = %s and method = %s;',
-                mysql.escape(username),
+                'SELECT * FROM user_file WHERE method = %s;',
                 mysql.escape(method)
             );
     
@@ -326,11 +278,65 @@ router.post('/getfileSubject', function(req, res) {
 //서버에서 파일 다운받기
 router.get('/download', function(req, res) {
     var filename = req.query.name;
+    var type = "jpg";
+    var size = 1000;
+    var method = "download";
+    var username = "ddiddu";
+
     console.log('downlaod');
     console.log(filename);
 
     var file = __dirname + '/../public/uploads/' + filename;
-    res.download(file);
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            res.json({
+                "code" : 3,
+                "success" : false,
+                "msg" : 'fail to connect database',
+                "err" : err
+            });
+            return;
+        }
+        var query = util.format(
+            'INSERT INTO user_file (username, filename, type, size, method) VALUES (%s, %s, %s, %d, %s);',
+            mysql.escape(username),
+            mysql.escape(filename),
+            mysql.escape(type),
+            mysql.escape(size),
+            mysql.escape(method)
+        );
+
+        connection.query(query, function(err, data) {
+            if(err) {
+                res.json({
+                    "code" : 3,
+                    "success" : false,
+                    "msg" : 'fail to connect database',
+                    "err" : err
+                });
+
+                return;
+            }
+
+            console.log('connection success');
+
+            if(!(data.toString() == "")){ //file에 대한 comment가 있을 때
+                // res.download(file);
+                res.json({
+                    "success" : true
+                })
+
+            } else {
+                res.json({
+                    "code" : 1,
+                    'msg' : 'no exist comments'
+                })
+                console.log('fail');
+            }
+        })
+    })
+    
+
 });
 
 //파일에 해당하는 댓글 보여주기
