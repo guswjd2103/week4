@@ -31,18 +31,31 @@ class FileView extends Component {
         const filename = this.props.filename;
 
         return(
-            <div class="middle-container my-container">
-                    <div class="profile my-block">
-                        <br></br><br></br>
-                        <h1 class="my-user-name"><font color="#fff">{filename}</font></h1>
-                    <div class="download-profile-description">
-                        <p class="scnd-font-color"><font color="#fff">subject: {subject}</font></p>
-                        <p class="scnd-font-color"><font color="#fff">producer : {producer}</font></p>
-                        <p class="scnd-font-color"><font color="#fff">illustration : {illustration}</font></p>
-                    </div>
-                    <a class="btn4" onClick = {() => this.handleDownload(filename)}>Download File</a>
-                    </div>
+            <div class="evnt-dsbrd-card">
+                <div class="article-thumb-img">
+                    <img src="./answer.PNG"/>
                 </div>
+            <h3 class="article-thumb-heading">{filename}</h3>
+            <div class="evnt-dsbrd-objctv-dscp">
+                <span class="objctv-dscp-heading">Subject</span>
+                <span class="objctv-dscp-data">
+                    <ul>{subject}</ul>
+                </span>
+            </div>
+            <div class="evnt-dsbrd-objctv-dscp">
+                <span class="objctv-dscp-heading">Producer</span>
+                <span class="objctv-dscp-data">
+                    <ul>{producer}</ul>
+                </span>
+            </div>
+            <div class="evnt-dsbrd-objctv-dscp">
+                <span class="objctv-dscp-heading">Illustration</span>
+                <span class="objctv-dscp-data">
+                <p>{illustration}</p>
+                </span>
+            </div>
+                <a href="#" class="aply-nw" onClick = {() => this.handleDownload(filename)}>Download</a>
+            </div>
         )
     }
     
