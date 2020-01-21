@@ -23,6 +23,7 @@ class ShowFileList extends Component {
             subject : subject,
             mode : true
         })
+        $(".navigation-elm").addClass(".navigation-elm:hover");
     }
 
     

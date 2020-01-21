@@ -100,6 +100,129 @@ body{
   &__body{
     margin: 0 auto;
     width: 90%;
+    h4 {
+      font-size: 2.2rem;}
+    
+    h5 {
+      font-size: 1.6rem;
+      margin-block-start: 0.3em;
+      margin-block-end: 0.3em;
+    }
+    
+    p{
+       color: darken($bgColor, 40%);
+      font-size: 1.4rem;
+    }
+   
+  }
+  
+  &__footer{
+    display: flex;
+    border-top: 1px solid $bgColor;
+    font-size: 1.2rem;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+    width: 90%;
+    
+    i{
+      color: darken($bgColor, 50%);
+      font-size: 1.4rem;
+    }
+    
+    a.write-material-icons{
+      color: darken($bgColor,100%);
+      text-decoration: none;
+      align-self: center;
+      margin-left: 116rem;
+      font-size: 1.7rem;
+    }
+
+    a.comment-material-icons{
+      color: darken($bgColor,100%);
+      text-decoration: none;
+      align-self: center;
+      margin-left: 100rem;
+      font-size: 1.7rem;
+    }
+
+    a{
+      color: darken($bgColor,100%);
+      text-decoration: none;
+      align-self: center;
+      margin-left: 2rem;
+      font-size: 1.5rem;
+    }
+  }
+}
+.download-card{/**/
+  border-radius: 5px;
+  margin: 2rem 11rem 0rem 45rem;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+  background: white;
+  
+  &__header{
+    position: relative;
+    padding: 1rem;
+  }
+  
+  &__icon{
+    align-items: center;
+    display: flex;
+    box-shadow: $defaultShadow;
+    text-align: center;
+    border-radius: 3px;
+    margin-top: -4rem;
+    padding: 2rem;
+    float: left;
+    z-index: 1;
+    
+    &--orange{
+     background-image: $orangeGradient;
+    }
+    
+    &--green{
+      background-image:$greenGradient;
+    }
+    
+    &--red{
+      background-image:$redGradient;
+    }
+    
+    &--blue{
+      background-image: $blueGradient;
+    }
+    
+    i{
+      color: #fff;
+      font-size: 3.6rem;
+      width: 56px;
+      
+    }
+  }
+  
+  &__category{
+    display: block;
+    text-align: right;
+    font-size: 1.4rem;
+    color: #999;
+    top: 10px;
+    width: 96%;
+  }
+  
+  &__title{
+    font-size: 2.4rem;
+    font-weight: lighter;
+    text-align: right;
+    width: 96%;
+     
+    small{
+      font-weight: 600;
+    }
+  }
+  
+  &__body{
+    margin: 0 auto;
+    width: 90%;
     
     h4 {
       font-size: 2.2rem;

@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getStatusRequest } from '../../actions/authentication';
+import '../../login.css'
+import '../../profile.css'
+import '../../file.css'
+import '../../file.scss'
 
 class Write extends Component {
     constructor(props){
@@ -43,7 +47,7 @@ class Write extends Component {
 
     render() {
         const writeView = (
-            <div classs="card">
+            <div class="download-card">
                 <div class="card__header">
                     <div id="lineB-ChartExample"></div>
                 </div>
@@ -57,7 +61,7 @@ class Write extends Component {
                     </h4>
                 </div>
                 <div class="card__footer">
-                    <i class="material-icons" onClick={this.handlePost}>Post</i>
+                    <a class="write-material-icons" onClick={this.handlePost}>Post</a>
                 </div>
             </div>
         )

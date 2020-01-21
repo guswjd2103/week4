@@ -19,7 +19,7 @@ class FileList extends Component {
         return list.map(file=> {
             const subject = file.subject;
 
-            Axios.post('/routes/fileList/getSubjectDetail', {subject}) 
+            Axios.post('/routes/fileList/getSubjectDetail', {subject}) //과목 상세정보 알려주기
             .then(res => {
                 const data = res.data.data[0];
                 this.setState({

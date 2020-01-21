@@ -3,9 +3,10 @@ html,
 .file-container {/**/
   height: 100%;
   margin: 0;
-  /* font-family: kanit; */
+  font-family: kanit;
   font-size: 16px;
   letter-spacing: 0.05rem;
+  font-weight: bold;
 }
 
 .file-container li:hover {/**/
@@ -55,12 +56,8 @@ html,
   background: rgba(100, 100, 130, 0.3);
 }
 
-.navigation-elm:nth-child(1) {/**/
-  background: rgba(0, 100, 130, 0.2); /*selected navigation bar color*/
-}
-
 .navigation-elm:hover {/**/
-  background: rgba(100, 100, 130, 0.2);
+  background:  rgba(0, 100, 130, 0.2);
   transition: all .1s ease-out;
 }
 
@@ -132,7 +129,7 @@ html,
   .sidebar {/**/
     width: 100%;
     flex-flow: row;
-    /* height: 60px; */
+    height: 60px;
     font-size: .9rem;
     padding-top: 0px;
     position: relative;
@@ -159,6 +156,8 @@ html,
 @media only screen and (max-width: 640px) {
   .text-short {/**/
     display: none;
+    font-size: 16px;
+    font-weight: bold;
   }
   .navigation-elm {/**/
     font-size: 4.5vw;

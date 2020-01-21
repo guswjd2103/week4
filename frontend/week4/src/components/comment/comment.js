@@ -52,24 +52,22 @@ class Comment extends Component {
     render() {
         const dropDownMenu = (
           <div>
-              <ul>
-                  <li><a onClick = {this.toggleEditContent}> Edit comment</a></li>
-                  <li><a onClick = {this.handleRemove}>Remove</a></li>
-              </ul>
+                  <a onClick = {this.toggleEditContent}> Edit comment</a>
+                  <a onClick = {this.handleRemove}>Remove</a>
           </div>
         );
 
         const CommentView = (
-            <div classs="card">
+            <div class="download-card">
                 <div class="card__header">
                     <div id="lineB-ChartExample"></div>
                 </div>
                 <div class="card__body">
-                    <h4>Comment: {this.props.data.comment}</h4>
-                    <p>Writer : {this.props.data.username}</p>
+                    <h5>{this.props.data.comment}</h5>
+                    <p>Written by : {this.props.data.username}</p>
                 </div>
                 <div class="card__footer">
-                    <i class="material-icons"> { this.props.ownership ? dropDownMenu : undefined }</i>
+                    <a class="comment-material-icons"> { this.props.ownership ? dropDownMenu : undefined }</a>
                 </div>
             </div>
         );

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react'; 
 import Axios from 'axios';
+import '../login.css'
 
 class FileView extends Component {
 
@@ -34,12 +35,12 @@ class FileView extends Component {
                     <div class="profile my-block">
                         <br></br><br></br>
                         <h1 class="my-user-name"><font color="#fff">{filename}</font></h1>
-                    <div class="profile-description">
+                    <div class="download-profile-description">
                         <p class="scnd-font-color"><font color="#fff">subject: {subject}</font></p>
                         <p class="scnd-font-color"><font color="#fff">producer : {producer}</font></p>
                         <p class="scnd-font-color"><font color="#fff">illustration : {illustration}</font></p>
                     </div>
-                    <a class="bt3" onClick = {() => this.handleDownload(filename)}>Download File</a>
+                    <a class="btn4" onClick = {() => this.handleDownload(filename)}>Download File</a>
                     </div>
                 </div>
         )

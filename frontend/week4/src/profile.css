@@ -459,6 +459,10 @@
                     margin: 0 auto;
                     text-align: center;
                 }
+                .download-profile-description {
+                    width: 210px;
+                    margin: 0 30px;
+                }
                 .profile-options {
                     padding-top: 23px;
                 }
