@@ -132,7 +132,7 @@ html,
   .sidebar {/**/
     width: 100%;
     flex-flow: row;
-    height: 60px;
+    /* height: 60px; */
     font-size: .9rem;
     padding-top: 0px;
     position: relative;

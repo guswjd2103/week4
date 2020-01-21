@@ -96,6 +96,7 @@ class Upload extends Component{
                     <form class="signup">
                     <h1 class="signup1">UPLOAD MY STUDY</h1>
                     <br></br><br></br>
+
                     <div class="file-upload">
                         <div class="file-select">
                             <div class="file-select-button" id="filename">Choose File</div>
@@ -103,19 +104,21 @@ class Upload extends Component{
                             <input type="file" name="chooseFile" id="chooseFile" onChange={this.onChangeHandler}></input>
                         </div>
                     </div>
+
                     <input
-                    name="password"
+                    name="illustration"
                     type="text"
                     className="upload-username"
                     onChange={this.handleChange}
-                    value={this.state.subject}
-                    onKeyPress={this.handleKeyPress}
+                    value={this.state.illustration}
                     placeholder="illustration*"/>
+
                     <input
                     name="name"
                     type="text"
                     className="upload-username"
                     placeholder="price*"/>
+
                     <span 
                     class="upload-dropdown-el" 
                     id="spinner"
@@ -125,6 +128,7 @@ class Upload extends Component{
                         <input type="radio" name="sortType" value="System Programming" id="sort-brand"/><label for="sort-brand">System Programming 허재혁 교수님</label>
                         <input type="radio" name="sortType" value="Programming Language" id="sort-name"/><label for="sort-name">Programming Language 류석영 교수님</label>
                     </span>
+
                     <br></br><br></br>
                     <a class="btn3"
                     onClick={this.onClickHandler}>Update Files</a>

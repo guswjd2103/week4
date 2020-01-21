@@ -13,7 +13,7 @@ class ShowSubjectFileList extends Component {
         return (
             <div>
                 {this.props.list.map((file,index)=>(
-                    <Link to={"/viewDetail/"+'${file.filename}'} className="link_file">
+                    <Link to={"/viewDetail/"+`${file.filename}`} className="link_file">
                         <div class="card">
                             <div class="card__header">
                                 <div id="lineB-ChartExample"></div>
@@ -23,7 +23,7 @@ class ShowSubjectFileList extends Component {
                                 <p>{file.username}</p>
                             </div>
                             <div class="card__footer">
-                                <i class="material-icons">download</i><a href="">\10000</a>
+                                <i class="material-icons">download price: 10,000</i>
                             </div>
                         </div>
                     </Link>
